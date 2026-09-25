@@ -3,59 +3,59 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+
   <title>CAT TIMES｜校园匿名吐槽墙</title>
 
-<meta
-  name="description"
-  content="CAT TIMES｜校园匿名吐槽、交流与分享。一个属于校园的匿名吐槽与交流空间。"
-/>
+  <meta
+    name="description"
+    content="CAT TIMES｜校园匿名吐槽、交流与分享。一个属于校园的匿名吐槽与交流空间。"
+  >
 
-<meta
-  name="keywords"
-  content="CAT TIMES,校园吐槽,校园匿名墙,校园交流,匿名投稿,校园社区"
-/>
+  <meta
+    name="keywords"
+    content="CAT TIMES,校园吐槽,校园匿名墙,校园交流,匿名投稿,校园社区"
+  >
 
-<meta name="author" content="CAT TIMES">
-<meta name="robots" content="index,follow">
-<meta name="theme-color" content="#000000">
+  <meta name="author" content="CAT TIMES">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#000000">
 
-<!-- Open Graph：QQ / Discord / Facebook 等 -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="CAT TIMES｜校园匿名吐槽墙">
-<meta
-  property="og:description"
-  content="一个属于校园的匿名吐槽与交流空间。说点真话，也听听大家的声音。"
-/>
-<meta property="og:site_name" content="CAT TIMES">
-<meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="CAT TIMES｜校园匿名吐槽墙">
+  <meta
+    property="og:description"
+    content="一个属于校园的匿名吐槽与交流空间。说点真话，也听听大家的声音。"
+  >
+  <meta property="og:site_name" content="CAT TIMES">
+  <meta property="og:locale" content="zh_CN">
 
-<!-- 分享封面，之后把地址换成你的 og-image.png -->
-<meta
-  property="og:image"
-  content="https://asukalwl-afk.github.io/cat-times/og-image.png"
-/>
-<meta
-  property="og:image:alt"
-  content="CAT TIMES｜校园匿名吐槽墙"
-/>
+  <meta
+    property="og:image"
+    content="https://asukalwl-afk.github.io/cat-times/og-image.png"
+  >
 
-<!-- Discord / X 等 -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="CAT TIMES｜校园匿名吐槽墙">
-<meta
-  name="twitter:description"
-  content="一个属于校园的匿名吐槽与交流空间。"
-/>
-<meta
-  name="twitter:image"
-  content="https://asukalwl-afk.github.io/cat-times/og-image.png"
-/>
+  <meta
+    property="og:image:alt"
+    content="CAT TIMES｜校园匿名吐槽墙"
+  >
 
-<!-- 搜索引擎规范地址 -->
-<link
-  rel="canonical"
-  href="https://asukalwl-afk.github.io/cat-times/"
->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CAT TIMES｜校园匿名吐槽墙">
+
+  <meta
+    name="twitter:description"
+    content="一个属于校园的匿名吐槽与交流空间。"
+  >
+
+  <meta
+    name="twitter:image"
+    content="https://asukalwl-afk.github.io/cat-times/og-image.png"
+  >
+
+  <link
+    rel="canonical"
+    href="https://asukalwl-afk.github.io/cat-times/"
+  >
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Noto+Sans+SC:wght@400;500;700;900&display=swap');
@@ -91,7 +91,8 @@
     }
 
     body::before {
-      content: "🐱  🐈  🐱  🐈‍⬛  🐱  🐈  🐱  🐈‍⬛  🐱  🐈  🐱  🐈‍⬛  🐱  🐈  🐱  🐈‍⬛  🐱  🐈  🐱  🐈‍⬛";
+      content:
+        "🐱  🐈  🐱  🐈‍⬛  🐱  🐈  🐱  🐈‍⬛  🐱  🐈  🐱  🐈‍⬛  🐱  🐈  🐱  🐈‍⬛  🐱  🐈  🐱  🐈‍⬛";
       position: fixed;
       inset: -30px;
       z-index: -1;
@@ -259,6 +260,103 @@
       color: white;
     }
 
+    /* HOT BOARD */
+
+    .hot-board {
+      margin: 22px 0 4px;
+      border: 2px solid var(--line);
+      background: white;
+      padding: 16px;
+      box-shadow: 5px 5px 0 rgba(0,0,0,.08);
+    }
+
+    .hot-board-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+    }
+
+    .hot-board-head strong {
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .hot-list {
+      display: grid;
+      gap: 7px;
+    }
+
+    .hot-item {
+      display: grid;
+      grid-template-columns: 34px 1fr auto;
+      gap: 10px;
+      align-items: center;
+      width: 100%;
+      border: 0;
+      border-bottom: 1px dashed #aaa;
+      background: transparent;
+      padding: 8px 0;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .hot-item:last-child {
+      border-bottom: 0;
+    }
+
+    .hot-item:hover {
+      background: #f1f1ed;
+    }
+
+    .hot-rank {
+      font-family: Georgia, serif;
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    .hot-title {
+      font-weight: 800;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .hot-likes {
+      font-size: 12px;
+      color: #666;
+      white-space: nowrap;
+    }
+
+    /* CAT IDENTITY */
+
+    .cat-id {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 800;
+    }
+
+    .cat-avatar {
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .cat-code {
+      color: #777;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .floor {
+      color: #777;
+      font-size: 11px;
+      margin-right: 6px;
+    }
+
     /* POST */
 
     main {
@@ -294,6 +392,8 @@
       border: 2px solid var(--line);
       padding: 22px;
       box-shadow: 6px 6px 0 rgba(0,0,0,.08);
+      scroll-margin-top: 140px;
+      transition: .15s;
     }
 
     .post:hover {
@@ -355,6 +455,8 @@
       background: var(--ink);
       color: white;
     }
+
+    /* COMMENTS */
 
     .comments {
       margin-top: 16px;
@@ -613,6 +715,14 @@
       .submit {
         width: 100%;
       }
+
+      .hot-item {
+        grid-template-columns: 28px 1fr auto;
+      }
+
+      .hot-title {
+        font-size: 13px;
+      }
     }
   </style>
 </head>
@@ -625,7 +735,10 @@
 
     <div class="logo">CAT TIMES</div>
 
-    <div class="tagline">THE CAMPUS<br>UNDERGROUND</div>
+    <div class="tagline">
+      THE CAMPUS<br>
+      UNDERGROUND
+    </div>
   </div>
 
   <nav>
@@ -646,15 +759,18 @@
 
   <section class="hero">
     <h1>这里，什么都可以说。</h1>
+
     <p>
       CAT TIMES 是一个匿名校园交流墙。
       抱怨、吐槽、分享、提问、整活——
       不需要实名，留下你真正想说的话。
     </p>
+
     <div class="hero-rule"></div>
   </section>
 
   <section class="controls">
+
     <input
       id="search"
       class="search"
@@ -677,40 +793,96 @@
     <button class="outline-btn" id="newPostBtn">
       ＋ 发布吐槽
     </button>
+
+  </section>
+
+  <!-- V2 热门榜 -->
+
+  <section class="hot-board">
+
+    <div class="hot-board-head">
+      <strong>🔥 今日热门榜</strong>
+      <span class="count">按点赞数</span>
+    </div>
+
+    <div id="hotList" class="hot-list">
+      <div style="color:#777;font-size:13px">
+        猫猫正在统计热门……
+      </div>
+    </div>
+
   </section>
 
   <main>
+
     <div class="section-head">
-      <h2 id="feedTitle">最新吐槽</h2>
-      <span class="count" id="postCount">加载中……</span>
+
+      <h2 id="feedTitle">
+        最新吐槽
+      </h2>
+
+      <span class="count" id="postCount">
+        加载中……
+      </span>
+
     </div>
 
     <div id="posts" class="posts">
+
       <div class="state">
-        <div class="cat">🐱</div>
-        <strong>正在召唤校园猫猫……</strong>
+
+        <div class="cat">
+          🐱
+        </div>
+
+        <strong>
+          正在召唤校园猫猫……
+        </strong>
+
       </div>
+
     </div>
+
   </main>
 
 </div>
 
 <footer>
+
   <div class="container footer-inner">
-    <div>CAT TIMES © 2026</div>
-    <div>ANONYMOUS · CAMPUS · COMMUNITY</div>
+
+    <div>
+      CAT TIMES © 2026
+    </div>
+
+    <div>
+      ANONYMOUS · CAMPUS · COMMUNITY
+    </div>
+
   </div>
+
 </footer>
 
 
 <!-- 发布窗口 -->
 
 <div class="modal-backdrop" id="postModal">
+
   <div class="modal">
 
     <div class="modal-header">
-      <h2>发布匿名吐槽</h2>
-      <button class="close" id="closeModal">×</button>
+
+      <h2>
+        发布匿名吐槽
+      </h2>
+
+      <button
+        class="close"
+        id="closeModal"
+      >
+        ×
+      </button>
+
     </div>
 
     <div class="modal-body">
@@ -718,98 +890,192 @@
       <form id="postForm">
 
         <div class="field">
-          <label>昵称</label>
+
+          <label>
+            昵称
+          </label>
+
           <input
             id="nickname"
             maxlength="30"
             placeholder="例如：一只路过的猫"
           >
+
         </div>
 
         <div class="field">
-          <label>分类</label>
+
+          <label>
+            分类
+          </label>
+
           <select id="postCategory" required>
-            <option value="校园生活">校园生活</option>
-            <option value="学习压力">学习压力</option>
-            <option value="食堂住宿">食堂住宿</option>
-            <option value="老师教学">老师教学</option>
-            <option value="社团活动">社团活动</option>
-            <option value="校园设施">校园设施</option>
-            <option value="其他">其他</option>
+
+            <option value="校园生活">
+              校园生活
+            </option>
+
+            <option value="学习压力">
+              学习压力
+            </option>
+
+            <option value="食堂住宿">
+              食堂住宿
+            </option>
+
+            <option value="老师教学">
+              老师教学
+            </option>
+
+            <option value="社团活动">
+              社团活动
+            </option>
+
+            <option value="校园设施">
+              校园设施
+            </option>
+
+            <option value="其他">
+              其他
+            </option>
+
           </select>
+
         </div>
 
         <div class="field">
-          <label>标题</label>
+
+          <label>
+            标题
+          </label>
+
           <input
             id="postTitle"
             maxlength="120"
             placeholder="给你的吐槽起个标题……"
             required
           >
+
         </div>
 
         <div class="field">
-          <label>内容</label>
+
+          <label>
+            内容
+          </label>
+
           <textarea
             id="postContent"
             maxlength="5000"
             placeholder="想说什么就说什么……"
             required
           ></textarea>
+
         </div>
 
         <div class="form-bottom">
-          <span class="char-count" id="charCount">0 / 5000</span>
 
-          <button class="submit" id="submitPost" type="submit">
+          <span
+            class="char-count"
+            id="charCount"
+          >
+            0 / 5000
+          </span>
+
+          <button
+            class="submit"
+            id="submitPost"
+            type="submit"
+          >
             发布
           </button>
+
         </div>
 
       </form>
 
     </div>
+
   </div>
+
 </div>
 
 
 <!-- 举报窗口 -->
 
 <div class="modal-backdrop" id="reportModal">
+
   <div class="modal">
 
     <div class="modal-header">
-      <h2>举报帖子</h2>
-      <button class="close" id="closeReport">×</button>
+
+      <h2>
+        举报帖子
+      </h2>
+
+      <button
+        class="close"
+        id="closeReport"
+      >
+        ×
+      </button>
+
     </div>
 
     <div class="modal-body">
 
       <form id="reportForm">
 
-        <input type="hidden" id="reportPostId">
+        <input
+          type="hidden"
+          id="reportPostId"
+        >
 
         <div class="field">
-          <label>举报原因</label>
+
+          <label>
+            举报原因
+          </label>
 
           <select id="reportReason">
-            <option value="spam">垃圾广告 / 刷屏</option>
-            <option value="harassment">骚扰 / 人身攻击</option>
-            <option value="privacy">泄露个人隐私</option>
-            <option value="illegal">违法或危险内容</option>
-            <option value="other">其他</option>
+
+            <option value="spam">
+              垃圾广告 / 刷屏
+            </option>
+
+            <option value="harassment">
+              骚扰 / 人身攻击
+            </option>
+
+            <option value="privacy">
+              泄露个人隐私
+            </option>
+
+            <option value="illegal">
+              违法或危险内容
+            </option>
+
+            <option value="other">
+              其他
+            </option>
+
           </select>
+
         </div>
 
-        <button class="submit" type="submit">
+        <button
+          class="submit"
+          type="submit"
+        >
           提交举报
         </button>
 
       </form>
 
     </div>
+
   </div>
+
 </div>
 
 
@@ -820,8 +1086,7 @@
 
   /*
    * ============================================================
-   * CAT TIMES
-   * Supabase configuration
+   * CAT TIMES V2
    * ============================================================
    */
 
@@ -831,10 +1096,6 @@
   const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_34wdfJsFMKCpx846e7jtCA_sfNQJQs1";
 
-
-  /*
-   * Load Supabase JS
-   */
 
   import {
     createClient
@@ -848,86 +1109,192 @@
 
 
   /*
-   * State
+   * STATE
    */
 
   let currentUser = null;
+
   let posts = [];
+
   let currentSort = "latest";
+
   let currentCategory = "all";
+
   let currentSearch = "";
+
   let openComments = new Set();
+
+
+  /*
+   * CAT IDENTITY
+   *
+   * 同一个匿名用户使用相同的 author_id，
+   * 因此会得到稳定的猫猫身份。
+   */
+
+  const CAT_EMOJIS = [
+    "🐱",
+    "🐈",
+    "🐈‍⬛",
+    "😺",
+    "😸",
+    "😼",
+    "😽",
+    "🙀"
+  ];
+
+
+  function catIdentity(authorId) {
+
+    const source =
+      String(authorId || "anonymous");
+
+    let hash = 0;
+
+    for (
+      let i = 0;
+      i < source.length;
+      i++
+    ) {
+
+      hash =
+        ((hash << 5) -
+          hash +
+          source.charCodeAt(i)) |
+        0;
+
+    }
+
+    hash = Math.abs(hash);
+
+    return {
+
+      emoji:
+        CAT_EMOJIS[
+          hash % CAT_EMOJIS.length
+        ],
+
+      name:
+        `猫猫-${hash
+          .toString(16)
+          .slice(-4)
+          .toUpperCase()}`
+
+    };
+
+  }
 
 
   /*
    * DOM
    */
 
-  const postsEl = document.getElementById("posts");
-  const postCountEl = document.getElementById("postCount");
-  const searchEl = document.getElementById("search");
-  const categoryFilterEl = document.getElementById("categoryFilter");
-  const postModal = document.getElementById("postModal");
-  const reportModal = document.getElementById("reportModal");
-  const postForm = document.getElementById("postForm");
-  const reportForm = document.getElementById("reportForm");
-  const contentEl = document.getElementById("postContent");
-  const charCountEl = document.getElementById("charCount");
+  const postsEl =
+    document.getElementById("posts");
+
+  const postCountEl =
+    document.getElementById("postCount");
+
+  const searchEl =
+    document.getElementById("search");
+
+  const categoryFilterEl =
+    document.getElementById("categoryFilter");
+
+  const postModal =
+    document.getElementById("postModal");
+
+  const reportModal =
+    document.getElementById("reportModal");
+
+  const postForm =
+    document.getElementById("postForm");
+
+  const reportForm =
+    document.getElementById("reportForm");
+
+  const contentEl =
+    document.getElementById("postContent");
+
+  const charCountEl =
+    document.getElementById("charCount");
 
 
   /*
-   * Date
+   * DATE
    */
 
   document.getElementById("today").textContent =
-    new Date().toLocaleDateString("zh-CN", {
-      year: "numeric",
-      month: "long",
-      day: "numeric"
-    });
+    new Date().toLocaleDateString(
+      "zh-CN",
+      {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      }
+    );
 
 
   /*
-   * Toast
+   * TOAST
    */
 
   let toastTimer;
 
-  function toast(message) {
-    const el = document.getElementById("toast");
 
-    el.textContent = message;
+  function toast(message) {
+
+    const el =
+      document.getElementById("toast");
+
+    el.textContent =
+      message;
+
     el.classList.add("show");
 
     clearTimeout(toastTimer);
 
-    toastTimer = setTimeout(() => {
-      el.classList.remove("show");
-    }, 2600);
+    toastTimer =
+      setTimeout(() => {
+
+        el.classList.remove("show");
+
+      }, 2600);
+
   }
 
 
   /*
-   * Anonymous login
+   * ANONYMOUS LOGIN
    */
 
   async function ensureAuth() {
 
     const {
       data: sessionData
-    } = await supabase.auth.getSession();
+    } =
+      await supabase.auth.getSession();
+
 
     if (sessionData.session) {
-      currentUser = sessionData.session.user;
+
+      currentUser =
+        sessionData.session.user;
+
       return currentUser;
+
     }
+
 
     const {
       data,
       error
-    } = await supabase.auth.signInAnonymously();
+    } =
+      await supabase.auth.signInAnonymously();
+
 
     if (error) {
+
       console.error(error);
 
       toast(
@@ -935,176 +1302,387 @@
       );
 
       throw error;
+
     }
 
-    currentUser = data.user;
+
+    currentUser =
+      data.user;
 
     return currentUser;
+
   }
 
 
   /*
-   * Load posts
+   * LOAD POSTS
    */
 
   async function loadPosts() {
 
     postsEl.innerHTML = `
       <div class="state">
-        <div class="cat">🐱</div>
-        <strong>猫猫正在翻阅今天的校园报纸……</strong>
+        <div class="cat">
+          🐱
+        </div>
+
+        <strong>
+          猫猫正在翻阅今天的校园报纸……
+        </strong>
       </div>
     `;
 
-    let query = supabase
-      .from("posts")
-      .select(`
-        id,
-        author_id,
-        created_at,
-        nickname,
-        title,
-        category,
-        content,
-        status,
-        like_count
-      `)
-      .eq("status", "published");
 
-    if (currentCategory !== "all") {
-      query = query.eq("category", currentCategory);
+    let query =
+      supabase
+        .from("posts")
+        .select(`
+          id,
+          author_id,
+          created_at,
+          nickname,
+          title,
+          category,
+          content,
+          status,
+          like_count
+        `)
+        .eq(
+          "status",
+          "published"
+        );
+
+
+    if (
+      currentCategory !== "all"
+    ) {
+
+      query =
+        query.eq(
+          "category",
+          currentCategory
+        );
+
     }
 
-    if (currentSort === "hot") {
 
-      query = query
-        .order("like_count", {
-          ascending: false
-        })
-        .order("created_at", {
-          ascending: false
-        });
+    if (
+      currentSort === "hot"
+    ) {
+
+      query =
+        query
+          .order(
+            "like_count",
+            {
+              ascending: false
+            }
+          )
+          .order(
+            "created_at",
+            {
+              ascending: false
+            }
+          );
 
     } else {
 
-      query = query.order(
-        "created_at",
-        {
-          ascending: false
-        }
-      );
+      query =
+        query.order(
+          "created_at",
+          {
+            ascending: false
+          }
+        );
 
     }
+
 
     const {
       data,
       error
-    } = await query.limit(100);
+    } =
+      await query.limit(100);
+
 
     if (error) {
+
       console.error(error);
 
       postsEl.innerHTML = `
         <div class="state">
-          <div class="cat">🙀</div>
-          <strong>数据库连接失败</strong>
-          <p>${escapeHTML(error.message)}</p>
+
+          <div class="cat">
+            🙀
+          </div>
+
+          <strong>
+            数据库连接失败
+          </strong>
+
+          <p>
+            ${escapeHTML(error.message)}
+          </p>
+
         </div>
       `;
 
       return;
+
     }
 
-    posts = data || [];
+
+    posts =
+      data || [];
+
 
     renderPosts();
+
+    renderHotBoard();
+
   }
 
 
   /*
-   * Render
+   * HOT BOARD
+   */
+
+  function renderHotBoard() {
+
+    const el =
+      document.getElementById("hotList");
+
+
+    if (!el) {
+      return;
+    }
+
+
+    const top =
+      [...posts]
+        .sort(
+          (a, b) => {
+
+            const likes =
+              Number(b.like_count || 0) -
+              Number(a.like_count || 0);
+
+            if (likes !== 0) {
+              return likes;
+            }
+
+            return (
+              new Date(b.created_at) -
+              new Date(a.created_at)
+            );
+
+          }
+        )
+        .slice(0, 5);
+
+
+    if (!top.length) {
+
+      el.innerHTML = `
+        <div style="color:#777;font-size:13px">
+          暂无热门帖子。
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    el.innerHTML =
+      top.map(
+        (post, index) => {
+
+          return `
+            <button
+              class="hot-item"
+              data-hot-id="${post.id}"
+            >
+
+              <span class="hot-rank">
+                0${index + 1}
+              </span>
+
+              <span class="hot-title">
+                ${escapeHTML(post.title)}
+              </span>
+
+              <span class="hot-likes">
+                ♡ ${Number(post.like_count || 0)}
+              </span>
+
+            </button>
+          `;
+
+        }
+      ).join("");
+
+
+    el
+      .querySelectorAll("[data-hot-id]")
+      .forEach(button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            const target =
+              document.getElementById(
+                `post-${button.dataset.hotId}`
+              );
+
+
+            if (target) {
+
+              target.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+              });
+
+              target.style.outline =
+                "4px solid #111";
+
+              setTimeout(() => {
+
+                target.style.outline =
+                  "";
+
+              }, 1600);
+
+            }
+
+          }
+        );
+
+      });
+
+  }
+
+
+  /*
+   * RENDER POSTS
    */
 
   function renderPosts() {
 
     const keyword =
-      currentSearch.trim().toLowerCase();
+      currentSearch
+        .trim()
+        .toLowerCase();
 
-    let filtered = posts.filter(post => {
 
-      if (!keyword) return true;
+    let filtered =
+      posts.filter(post => {
 
-      return (
-        (post.title || "")
-          .toLowerCase()
-          .includes(keyword)
-        ||
-        (post.content || "")
-          .toLowerCase()
-          .includes(keyword)
-      );
+        if (!keyword) {
+          return true;
+        }
 
-    });
+
+        return (
+
+          (post.title || "")
+            .toLowerCase()
+            .includes(keyword)
+
+          ||
+
+          (post.content || "")
+            .toLowerCase()
+            .includes(keyword)
+
+        );
+
+      });
 
 
     postCountEl.textContent =
       `${filtered.length} 篇`;
 
 
-    if (currentSort === "hot") {
-      document.getElementById("feedTitle").textContent =
-        "热门吐槽";
-    } else {
-      document.getElementById("feedTitle").textContent =
-        "最新吐槽";
-    }
+    document.getElementById(
+      "feedTitle"
+    ).textContent =
+      currentSort === "hot"
+        ? "热门吐槽"
+        : "最新吐槽";
 
 
     if (!filtered.length) {
 
       postsEl.innerHTML = `
         <div class="state">
-          <div class="cat">🐈</div>
-          <strong>这里暂时没有猫猫找到的内容。</strong>
-          <p>成为第一个发帖的人吧。</p>
+
+          <div class="cat">
+            🐈
+          </div>
+
+          <strong>
+            这里暂时没有猫猫找到的内容。
+          </strong>
+
+          <p>
+            成为第一个发帖的人吧。
+          </p>
+
         </div>
       `;
 
       return;
+
     }
 
 
     postsEl.innerHTML = "";
 
+
     filtered.forEach(post => {
-      postsEl.appendChild(createPostElement(post));
+
+      postsEl.appendChild(
+        createPostElement(post)
+      );
+
     });
 
   }
 
 
   /*
-   * Create post
+   * CREATE POST
    */
 
   function createPostElement(post) {
 
-    const article = document.createElement("article");
+    const article =
+      document.createElement("article");
 
-    article.className = "post";
 
-    const date = new Date(
-      post.created_at
-    ).toLocaleString(
-      "zh-CN",
-      {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit"
-      }
-    );
+    article.className =
+      "post";
+
+
+    article.id =
+      `post-${post.id}`;
+
+
+    const date =
+      new Date(
+        post.created_at
+      ).toLocaleString(
+        "zh-CN",
+        {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit"
+        }
+      );
 
 
     const nickname =
@@ -1112,57 +1690,102 @@
       "匿名猫猫";
 
 
+    const cat =
+      catIdentity(
+        post.author_id
+      );
+
+
     article.innerHTML = `
+
       <div class="post-meta">
+
         <span class="category">
-          ${escapeHTML(post.category || "其他")}
+          ${escapeHTML(
+            post.category || "其他"
+          )}
         </span>
+
+
+        <span class="cat-id">
+
+          <span class="cat-avatar">
+            ${cat.emoji}
+          </span>
+
+          ${escapeHTML(nickname)}
+
+        </span>
+
+
+        <span class="cat-code">
+          ${cat.name}
+        </span>
+
 
         <span>
-          ${escapeHTML(nickname)}
+          ·
         </span>
 
-        <span>·</span>
 
         <span>
           ${escapeHTML(date)}
         </span>
+
       </div>
+
 
       <h3>
         ${escapeHTML(post.title)}
       </h3>
 
+
       <div class="post-content">
         ${escapeHTML(post.content)}
       </div>
 
+
       <div class="post-footer">
 
-        <button class="action like-btn">
+        <button
+          class="action like-btn"
+        >
           ♡ 赞
+
           <span class="like-number">
             ${Number(post.like_count || 0)}
           </span>
         </button>
 
-        <button class="action comment-btn">
+
+        <button
+          class="action comment-btn"
+        >
           💬 评论
         </button>
 
-        <button class="action report-btn">
+
+        <button
+          class="action report-btn"
+        >
           ⚑ 举报
         </button>
 
       </div>
 
+
       <div class="comments">
 
         <div class="comment-list">
-          <div style="color:#777;font-size:13px">
+
+          <div
+            style="color:#777;font-size:13px"
+          >
             加载评论中……
           </div>
+
         </div>
+
 
         <form class="comment-form">
 
@@ -1171,11 +1794,13 @@
             placeholder="昵称"
           >
 
+
           <textarea
             maxlength="1000"
             placeholder="写下你的评论……"
             required
           ></textarea>
+
 
           <button
             class="action"
@@ -1187,30 +1812,48 @@
         </form>
 
       </div>
+
     `;
 
 
     const likeBtn =
-      article.querySelector(".like-btn");
+      article.querySelector(
+        ".like-btn"
+      );
+
 
     const commentBtn =
-      article.querySelector(".comment-btn");
+      article.querySelector(
+        ".comment-btn"
+      );
+
 
     const reportBtn =
-      article.querySelector(".report-btn");
+      article.querySelector(
+        ".report-btn"
+      );
+
 
     const commentsEl =
-      article.querySelector(".comments");
+      article.querySelector(
+        ".comments"
+      );
+
 
     const commentList =
-      article.querySelector(".comment-list");
+      article.querySelector(
+        ".comment-list"
+      );
+
 
     const commentForm =
-      article.querySelector(".comment-form");
+      article.querySelector(
+        ".comment-form"
+      );
 
 
     /*
-     * Like
+     * LIKE
      */
 
     likeBtn.addEventListener(
@@ -1227,7 +1870,7 @@
 
 
     /*
-     * Comments
+     * COMMENTS
      */
 
     commentBtn.addEventListener(
@@ -1235,13 +1878,22 @@
       async () => {
 
         const opening =
-          !commentsEl.classList.contains("open");
+          !commentsEl.classList.contains(
+            "open"
+          );
 
-        commentsEl.classList.toggle("open");
+
+        commentsEl.classList.toggle(
+          "open"
+        );
+
 
         if (opening) {
 
-          openComments.add(post.id);
+          openComments.add(
+            post.id
+          );
+
 
           await loadComments(
             post.id,
@@ -1250,7 +1902,9 @@
 
         } else {
 
-          openComments.delete(post.id);
+          openComments.delete(
+            post.id
+          );
 
         }
 
@@ -1259,7 +1913,7 @@
 
 
     /*
-     * Report
+     * REPORT
      */
 
     reportBtn.addEventListener(
@@ -1268,16 +1922,20 @@
 
         document.getElementById(
           "reportPostId"
-        ).value = post.id;
+        ).value =
+          post.id;
 
-        reportModal.classList.add("open");
+
+        reportModal.classList.add(
+          "open"
+        );
 
       }
     );
 
 
     /*
-     * Comment submit
+     * COMMENT SUBMIT
      */
 
     commentForm.addEventListener(
@@ -1286,27 +1944,44 @@
 
         event.preventDefault();
 
+
         const inputs =
           commentForm.querySelectorAll(
             "input, textarea"
           );
 
+
         const nickname =
-          inputs[0].value.trim();
+          inputs[0]
+            .value
+            .trim();
+
 
         const content =
-          inputs[1].value.trim();
+          inputs[1]
+            .value
+            .trim();
 
 
         if (!content) {
-          toast("评论不能为空");
+
+          toast(
+            "评论不能为空"
+          );
+
           return;
+
         }
 
 
         if (content.length > 1000) {
-          toast("评论不能超过 1000 字");
+
+          toast(
+            "评论不能超过 1000 字"
+          );
+
           return;
+
         }
 
 
@@ -1315,28 +1990,47 @@
 
 
         const button =
-          commentForm.querySelector("button");
+          commentForm.querySelector(
+            "button"
+          );
+
 
         button.disabled = true;
-        button.textContent = "发送中……";
+
+        button.textContent =
+          "发送中……";
 
 
         const {
           error
-        } = await supabase
-          .from("comments")
-          .insert({
-            author_id: user.id,
-            post_id: post.id,
-            nickname:
-              nickname || "匿名猫猫",
-            content,
-            status: "published"
-          });
+        } =
+          await supabase
+            .from("comments")
+            .insert({
+
+              author_id:
+                user.id,
+
+              post_id:
+                post.id,
+
+              nickname:
+                nickname ||
+                "匿名猫猫",
+
+              content,
+
+              status:
+                "published"
+
+            });
 
 
-        button.disabled = false;
-        button.textContent = "发送";
+        button.disabled =
+          false;
+
+        button.textContent =
+          "发送";
 
 
         if (error) {
@@ -1344,16 +2038,23 @@
           console.error(error);
 
           toast(
-            "评论失败：" + error.message
+            "评论失败：" +
+            error.message
           );
 
           return;
+
         }
 
 
-        inputs[1].value = "";
+        inputs[1].value =
+          "";
 
-        toast("评论已发布");
+
+        toast(
+          "评论已发布"
+        );
+
 
         await loadComments(
           post.id,
@@ -1365,32 +2066,45 @@
 
 
     /*
-     * Restore open state
+     * RESTORE COMMENT STATE
      */
 
-    if (openComments.has(post.id)) {
+    if (
+      openComments.has(
+        post.id
+      )
+    ) {
 
-      commentsEl.classList.add("open");
+      commentsEl.classList.add(
+        "open"
+      );
+
 
       setTimeout(() => {
+
         loadComments(
           post.id,
           commentList
         );
+
       }, 0);
 
     }
 
 
     return article;
+
   }
 
 
   /*
-   * Like toggle
+   * LIKE TOGGLE
    */
 
-  async function toggleLike(post, button) {
+  async function toggleLike(
+    post,
+    button
+  ) {
 
     const user =
       await ensureAuth();
@@ -1399,13 +2113,23 @@
     const {
       data: existing,
       error: findError
-    } = await supabase
-      .from("reactions")
-      .select("id")
-      .eq("post_id", post.id)
-      .eq("visitor_id", user.id)
-      .eq("type", "like")
-      .maybeSingle();
+    } =
+      await supabase
+        .from("reactions")
+        .select("id")
+        .eq(
+          "post_id",
+          post.id
+        )
+        .eq(
+          "visitor_id",
+          user.id
+        )
+        .eq(
+          "type",
+          "like"
+        )
+        .maybeSingle();
 
 
     if (findError) {
@@ -1414,9 +2138,12 @@
         "无法读取点赞状态"
       );
 
-      console.error(findError);
+      console.error(
+        findError
+      );
 
       return;
+
     }
 
 
@@ -1424,70 +2151,115 @@
 
       const {
         error
-      } = await supabase
-        .from("reactions")
-        .delete()
-        .eq("id", existing.id);
-
-
-      if (error) {
-
-        toast("取消点赞失败");
-
-        return;
-      }
-
-      button.classList.remove("liked");
-
-    } else {
-
-      const {
-        error
-      } = await supabase
-        .from("reactions")
-        .insert({
-          post_id: post.id,
-          visitor_id: user.id,
-          type: "like"
-        });
+      } =
+        await supabase
+          .from("reactions")
+          .delete()
+          .eq(
+            "id",
+            existing.id
+          );
 
 
       if (error) {
 
         toast(
-          "点赞失败：" + error.message
+          "取消点赞失败"
         );
 
         return;
+
       }
 
-      button.classList.add("liked");
+
+      button.classList.remove(
+        "liked"
+      );
+
+    } else {
+
+      const {
+        error
+      } =
+        await supabase
+          .from("reactions")
+          .insert({
+
+            post_id:
+              post.id,
+
+            visitor_id:
+              user.id,
+
+            type:
+              "like"
+
+          });
+
+
+      if (error) {
+
+        toast(
+          "点赞失败：" +
+          error.message
+        );
+
+        return;
+
+      }
+
+
+      button.classList.add(
+        "liked"
+      );
 
     }
 
 
     /*
-     * Count reactions directly.
+     * 重新读取点赞数量
      */
 
     const {
       count,
       error: countError
-    } = await supabase
-      .from("reactions")
-      .select("*", {
-        count: "exact",
-        head: true
-      })
-      .eq("post_id", post.id)
-      .eq("type", "like");
+    } =
+      await supabase
+        .from("reactions")
+        .select(
+          "*",
+          {
+            count: "exact",
+            head: true
+          }
+        )
+        .eq(
+          "post_id",
+          post.id
+        )
+        .eq(
+          "type",
+          "like"
+        );
 
 
     if (!countError) {
 
+      const nextCount =
+        count || 0;
+
+
       button.querySelector(
         ".like-number"
-      ).textContent = count || 0;
+      ).textContent =
+        nextCount;
+
+
+      post.like_count =
+        nextCount;
+
+
+      renderHotBoard();
 
     }
 
@@ -1495,7 +2267,7 @@
 
 
   /*
-   * Load comments
+   * LOAD COMMENTS
    */
 
   async function loadComments(
@@ -1506,22 +2278,30 @@
     const {
       data,
       error
-    } = await supabase
-      .from("comments")
-      .select(`
-        id,
-        created_at,
-        nickname,
-        content
-      `)
-      .eq("post_id", postId)
-      .eq("status", "published")
-      .order(
-        "created_at",
-        {
-          ascending: true
-        }
-      );
+    } =
+      await supabase
+        .from("comments")
+        .select(`
+          id,
+          author_id,
+          created_at,
+          nickname,
+          content
+        `)
+        .eq(
+          "post_id",
+          postId
+        )
+        .eq(
+          "status",
+          "published"
+        )
+        .order(
+          "created_at",
+          {
+            ascending: true
+          }
+        );
 
 
     if (error) {
@@ -1533,6 +2313,7 @@
       `;
 
       return;
+
     }
 
 
@@ -1545,70 +2326,138 @@
       `;
 
       return;
+
     }
 
 
-    container.innerHTML = "";
+    container.innerHTML =
+      "";
 
 
-    data.forEach(comment => {
+    data.forEach(
+      (comment, index) => {
 
-      const div =
-        document.createElement("div");
+        const div =
+          document.createElement(
+            "div"
+          );
 
-      div.className = "comment";
 
-      div.innerHTML = `
-        <div class="comment-name">
-          ${escapeHTML(
-            comment.nickname || "匿名猫猫"
-          )}
-        </div>
+        div.className =
+          "comment";
 
-        <div class="comment-body">
-          ${escapeHTML(comment.content)}
-        </div>
-      `;
 
-      container.appendChild(div);
+        const cat =
+          catIdentity(
+            comment.author_id
+          );
 
-    });
+
+        div.innerHTML = `
+
+          <div class="comment-name">
+
+            <span class="floor">
+              #${index + 1} 楼
+            </span>
+
+            <span class="cat-id">
+
+              <span class="cat-avatar">
+                ${cat.emoji}
+              </span>
+
+              ${escapeHTML(
+                comment.nickname ||
+                "匿名猫猫"
+              )}
+
+            </span>
+
+            <span class="cat-code">
+              ${cat.name}
+            </span>
+
+          </div>
+
+
+          <div class="comment-body">
+            ${escapeHTML(
+              comment.content
+            )}
+          </div>
+
+        `;
+
+
+        container.appendChild(
+          div
+        );
+
+      }
+    );
 
   }
 
 
   /*
-   * Escape HTML
+   * ESCAPE HTML
    */
 
   function escapeHTML(value) {
 
-    return String(value ?? "")
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
+    return String(
+      value ?? ""
+    )
+      .replaceAll(
+        "&",
+        "&amp;"
+      )
+      .replaceAll(
+        "<",
+        "&lt;"
+      )
+      .replaceAll(
+        ">",
+        "&gt;"
+      )
+      .replaceAll(
+        '"',
+        "&quot;"
+      )
+      .replaceAll(
+        "'",
+        "&#039;"
+      );
 
   }
 
 
   /*
-   * Modal
+   * MODAL
    */
 
   document
-    .getElementById("newPostBtn")
+    .getElementById(
+      "newPostBtn"
+    )
     .addEventListener(
       "click",
       () => {
 
-        postModal.classList.add("open");
+        postModal.classList.add(
+          "open"
+        );
+
 
         setTimeout(() => {
+
           document
-            .getElementById("postTitle")
+            .getElementById(
+              "postTitle"
+            )
             .focus();
+
         }, 100);
 
       }
@@ -1616,21 +2465,33 @@
 
 
   document
-    .getElementById("closeModal")
+    .getElementById(
+      "closeModal"
+    )
     .addEventListener(
       "click",
       () => {
-        postModal.classList.remove("open");
+
+        postModal.classList.remove(
+          "open"
+        );
+
       }
     );
 
 
   document
-    .getElementById("closeReport")
+    .getElementById(
+      "closeReport"
+    )
     .addEventListener(
       "click",
       () => {
-        reportModal.classList.remove("open");
+
+        reportModal.classList.remove(
+          "open"
+        );
+
       }
     );
 
@@ -1640,9 +2501,14 @@
     event => {
 
       if (
-        event.target === postModal
+        event.target ===
+        postModal
       ) {
-        postModal.classList.remove("open");
+
+        postModal.classList.remove(
+          "open"
+        );
+
       }
 
     }
@@ -1654,9 +2520,14 @@
     event => {
 
       if (
-        event.target === reportModal
+        event.target ===
+        reportModal
       ) {
-        reportModal.classList.remove("open");
+
+        reportModal.classList.remove(
+          "open"
+        );
+
       }
 
     }
@@ -1664,7 +2535,7 @@
 
 
   /*
-   * Character counter
+   * CHARACTER COUNTER
    */
 
   contentEl.addEventListener(
@@ -1679,7 +2550,7 @@
 
 
   /*
-   * Post submit
+   * POST SUBMIT
    */
 
   postForm.addEventListener(
@@ -1691,57 +2562,85 @@
 
       const nickname =
         document
-          .getElementById("nickname")
+          .getElementById(
+            "nickname"
+          )
           .value
           .trim();
 
 
       const category =
         document
-          .getElementById("postCategory")
+          .getElementById(
+            "postCategory"
+          )
           .value;
 
 
       const title =
         document
-          .getElementById("postTitle")
+          .getElementById(
+            "postTitle"
+          )
           .value
           .trim();
 
 
       const content =
         document
-          .getElementById("postContent")
+          .getElementById(
+            "postContent"
+          )
           .value
           .trim();
 
 
       if (!title) {
-        toast("请填写标题");
+
+        toast(
+          "请填写标题"
+        );
+
         return;
+
       }
 
 
       if (!content) {
-        toast("请填写内容");
+
+        toast(
+          "请填写内容"
+        );
+
         return;
+
       }
 
 
       if (title.length > 120) {
-        toast("标题不能超过 120 字");
+
+        toast(
+          "标题不能超过 120 字"
+        );
+
         return;
+
       }
 
 
       if (content.length > 5000) {
-        toast("内容不能超过 5000 字");
+
+        toast(
+          "内容不能超过 5000 字"
+        );
+
         return;
+
       }
 
 
       /*
-       * Very basic client-side anti-spam.
+       * CLIENT-SIDE ANTI-SPAM
        */
 
       const lastPost =
@@ -1753,7 +2652,8 @@
 
 
       if (
-        Date.now() - lastPost <
+        Date.now() -
+        lastPost <
         15000
       ) {
 
@@ -1762,6 +2662,7 @@
         );
 
         return;
+
       }
 
 
@@ -1775,27 +2676,44 @@
         );
 
 
-      button.disabled = true;
-      button.textContent = "发布中……";
+      button.disabled =
+        true;
+
+      button.textContent =
+        "发布中……";
 
 
       const {
         error
-      } = await supabase
-        .from("posts")
-        .insert({
-          author_id: user.id,
-          nickname:
-            nickname || "匿名猫猫",
-          title,
-          category,
-          content,
-          status: "published"
-        });
+      } =
+        await supabase
+          .from("posts")
+          .insert({
+
+            author_id:
+              user.id,
+
+            nickname:
+              nickname ||
+              "匿名猫猫",
+
+            title,
+
+            category,
+
+            content,
+
+            status:
+              "published"
+
+          });
 
 
-      button.disabled = false;
-      button.textContent = "发布";
+      button.disabled =
+        false;
+
+      button.textContent =
+        "发布";
 
 
       if (error) {
@@ -1803,29 +2721,43 @@
         console.error(error);
 
         toast(
-          "发布失败：" + error.message
+          "发布失败：" +
+          error.message
         );
 
         return;
+
       }
 
 
       localStorage.setItem(
         "cat_times_last_post",
-        String(Date.now())
+        String(
+          Date.now()
+        )
       );
 
 
       postForm.reset();
 
+
       charCountEl.textContent =
         "0 / 5000";
 
-      postModal.classList.remove("open");
 
-      toast("发布成功 🐱");
+      postModal.classList.remove(
+        "open"
+      );
 
-      currentSort = "latest";
+
+      toast(
+        "发布成功 🐱"
+      );
+
+
+      currentSort =
+        "latest";
+
 
       await loadPosts();
 
@@ -1834,7 +2766,7 @@
 
 
   /*
-   * Report submit
+   * REPORT
    */
 
   reportForm.addEventListener(
@@ -1866,13 +2798,20 @@
 
       const {
         error
-      } = await supabase
-        .from("reports")
-        .insert({
-          post_id: Number(postId),
-          reporter_id: user.id,
-          reason
-        });
+      } =
+        await supabase
+          .from("reports")
+          .insert({
+
+            post_id:
+              Number(postId),
+
+            reporter_id:
+              user.id,
+
+            reason
+
+          });
 
 
       if (error) {
@@ -1880,14 +2819,19 @@
         console.error(error);
 
         toast(
-          "举报失败：" + error.message
+          "举报失败：" +
+          error.message
         );
 
         return;
+
       }
 
 
-      reportModal.classList.remove("open");
+      reportModal.classList.remove(
+        "open"
+      );
+
 
       toast(
         "举报已提交，感谢你的反馈。"
@@ -1898,7 +2842,7 @@
 
 
   /*
-   * Search
+   * SEARCH
    */
 
   searchEl.addEventListener(
@@ -1915,7 +2859,7 @@
 
 
   /*
-   * Category select
+   * CATEGORY
    */
 
   categoryFilterEl.addEventListener(
@@ -1932,11 +2876,13 @@
 
 
   /*
-   * Navigation
+   * NAVIGATION
    */
 
   document
-    .querySelectorAll("nav button")
+    .querySelectorAll(
+      "nav button"
+    )
     .forEach(button => {
 
       button.addEventListener(
@@ -1947,11 +2893,14 @@
             .querySelectorAll(
               "nav button"
             )
-            .forEach(btn =>
+            .forEach(btn => {
+
               btn.classList.remove(
                 "active"
-              )
-            );
+              );
+
+            });
+
 
           button.classList.add(
             "active"
@@ -1977,8 +2926,10 @@
             currentCategory =
               button.dataset.category;
 
+
             categoryFilterEl.value =
               currentCategory;
+
 
             loadPosts();
 
@@ -1991,7 +2942,7 @@
 
 
   /*
-   * Start
+   * START
    */
 
   async function init() {
