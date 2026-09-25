@@ -1,0 +1,1532 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <title>CAT TIMES｜ADMIN</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=UnifrakturCook:wght@700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --black: #080808;
+      --white: #fff;
+      --gray: #666;
+      --line: #171717;
+      --soft: #f2f2f2;
+      --danger: #b00000;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #fff;
+      color: var(--black);
+      font-family: "Noto Sans SC", sans-serif;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .035;
+      background-image:
+        radial-gradient(#000 1px, transparent 1px);
+      background-size: 7px 7px;
+      z-index: -1;
+    }
+
+    .cat-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .cat {
+      position: absolute;
+      font-size: 40px;
+      opacity: .035;
+      user-select: none;
+    }
+
+    header {
+      border-bottom: 4px solid #000;
+      background: rgba(255,255,255,.96);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .topline {
+      height: 34px;
+      border-bottom: 1px solid #000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 22px;
+      font-size: 11px;
+      letter-spacing: .12em;
+      font-weight: 700;
+    }
+
+    .masthead {
+      padding: 12px 22px 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 20px;
+    }
+
+    .logo {
+      font-family: "UnifrakturCook", cursive;
+      font-size: clamp(44px, 8vw, 86px);
+      line-height: .8;
+      white-space: nowrap;
+    }
+
+    .admin-label {
+      font-size: 12px;
+      letter-spacing: .2em;
+      font-weight: 900;
+      border: 2px solid #000;
+      padding: 8px 12px;
+    }
+
+    .layout {
+      width: min(1400px, calc(100% - 30px));
+      margin: 25px auto 60px;
+    }
+
+    .login {
+      width: min(460px, 100%);
+      margin: 80px auto;
+      border: 3px solid #000;
+      padding: 28px;
+      background: #fff;
+      box-shadow: 10px 10px 0 #000;
+    }
+
+    .login h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      font-weight: 900;
+    }
+
+    .login p {
+      color: var(--gray);
+      font-size: 13px;
+      margin-bottom: 24px;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      border: 2px solid #000;
+      background: #fff;
+      padding: 12px;
+      font: inherit;
+      outline: none;
+      border-radius: 0;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      box-shadow: 4px 4px 0 #000;
+    }
+
+    .field {
+      margin-bottom: 14px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 900;
+      margin-bottom: 6px;
+      letter-spacing: .08em;
+    }
+
+    button {
+      border: 2px solid #000;
+      background: #000;
+      color: #fff;
+      padding: 11px 16px;
+      font: inherit;
+      font-weight: 900;
+      cursor: pointer;
+      border-radius: 0;
+      transition: .15s;
+    }
+
+    button:hover {
+      transform: translate(-2px,-2px);
+      box-shadow: 4px 4px 0 #000;
+    }
+
+    button.light {
+      background: #fff;
+      color: #000;
+    }
+
+    button.danger {
+      background: #fff;
+      color: var(--danger);
+      border-color: var(--danger);
+    }
+
+    button.danger:hover {
+      background: var(--danger);
+      color: #fff;
+      box-shadow: 4px 4px 0 var(--danger);
+    }
+
+    button.small {
+      padding: 7px 10px;
+      font-size: 12px;
+    }
+
+    .dashboard {
+      display: none;
+    }
+
+    .dashboard.active {
+      display: block;
+    }
+
+    .toolbar {
+      border: 3px solid #000;
+      padding: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      background: #fff;
+      margin-bottom: 18px;
+    }
+
+    .toolbar input {
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .stat {
+      border: 2px solid #000;
+      padding: 16px;
+      background: #fff;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .12em;
+    }
+
+    .stat-number {
+      font-size: 32px;
+      font-weight: 900;
+      margin-top: 5px;
+    }
+
+    .section-title {
+      border-top: 5px solid #000;
+      border-bottom: 2px solid #000;
+      padding: 10px 0;
+      margin: 30px 0 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    .post-card {
+      border: 2px solid #000;
+      background: #fff;
+      margin-bottom: 14px;
+    }
+
+    .post-card.hidden-post {
+      opacity: .65;
+      background: #f5f5f5;
+    }
+
+    .post-head {
+      padding: 12px 14px;
+      border-bottom: 1px solid #000;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .post-title {
+      font-size: 19px;
+      font-weight: 900;
+      margin-bottom: 5px;
+    }
+
+    .post-meta {
+      color: #666;
+      font-size: 11px;
+    }
+
+    .status {
+      border: 1px solid #000;
+      padding: 4px 7px;
+      font-size: 10px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .status.published {
+      background: #000;
+      color: #fff;
+    }
+
+    .status.hidden {
+      background: #fff;
+      color: #000;
+    }
+
+    .status.deleted {
+      color: var(--danger);
+      border-color: var(--danger);
+    }
+
+    .post-body {
+      padding: 14px;
+      white-space: pre-wrap;
+      line-height: 1.7;
+      font-size: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    .post-foot {
+      padding: 10px 14px;
+      border-top: 1px solid #000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .post-info {
+      font-size: 11px;
+      color: #555;
+    }
+
+    .actions {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .report-card {
+      border: 2px solid #000;
+      padding: 14px;
+      margin-bottom: 10px;
+      background: #fff;
+    }
+
+    .report-title {
+      font-weight: 900;
+      margin-bottom: 7px;
+    }
+
+    .report-reason {
+      padding: 10px;
+      background: var(--soft);
+      margin: 8px 0;
+      font-size: 13px;
+    }
+
+    .message {
+      padding: 12px;
+      border: 2px solid #000;
+      margin-bottom: 15px;
+      display: none;
+      background: #fff;
+      font-size: 13px;
+    }
+
+    .message.show {
+      display: block;
+    }
+
+    .message.error {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+
+    .loading {
+      text-align: center;
+      padding: 30px;
+      font-weight: 900;
+    }
+
+    .empty {
+      border: 2px dashed #000;
+      padding: 30px;
+      text-align: center;
+      color: #666;
+    }
+
+    .logout {
+      margin-left: auto;
+    }
+
+    @media (max-width: 800px) {
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .masthead {
+        align-items: center;
+      }
+
+      .admin-label {
+        display: none;
+      }
+
+      .topline {
+        padding: 0 12px;
+      }
+
+      .layout {
+        width: calc(100% - 18px);
+      }
+
+      .post-head {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stats {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .logo {
+        font-size: 45px;
+      }
+
+      .login {
+        box-shadow: 6px 6px 0 #000;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="cat-bg" id="catBg"></div>
+
+<header>
+  <div class="topline">
+    <span>CAT TIMES / ADMINISTRATION</span>
+    <span id="currentTime"></span>
+  </div>
+
+  <div class="masthead">
+    <div class="logo">CAT TIMES</div>
+    <div class="admin-label">ADMIN CONSOLE</div>
+  </div>
+</header>
+
+<main class="layout">
+
+  <!-- LOGIN -->
+
+  <section class="login" id="loginPanel">
+
+    <h1>管理员登录</h1>
+
+    <p>
+      CAT TIMES ADMINISTRATION CONSOLE
+    </p>
+
+    <div id="loginMessage" class="message"></div>
+
+    <form id="loginForm">
+
+      <div class="field">
+        <label>EMAIL</label>
+        <input
+          id="email"
+          type="email"
+          autocomplete="username"
+          required
+          placeholder="管理员邮箱"
+        >
+      </div>
+
+      <div class="field">
+        <label>PASSWORD</label>
+        <input
+          id="password"
+          type="password"
+          autocomplete="current-password"
+          required
+          placeholder="管理员密码"
+        >
+      </div>
+
+      <button type="submit" style="width:100%">
+        ENTER ADMIN
+      </button>
+
+    </form>
+
+  </section>
+
+
+  <!-- DASHBOARD -->
+
+  <section class="dashboard" id="dashboard">
+
+    <div class="toolbar">
+
+      <strong>CAT TIMES / CONTROL ROOM</strong>
+
+      <button
+        class="light small"
+        id="refreshBtn"
+      >
+        ↻ 刷新
+      </button>
+
+      <button
+        class="light small logout"
+        id="logoutBtn"
+      >
+        退出登录
+      </button>
+
+    </div>
+
+
+    <div id="adminMessage" class="message"></div>
+
+
+    <!-- STATS -->
+
+    <div class="stats">
+
+      <div class="stat">
+        <div class="stat-label">TOTAL POSTS</div>
+        <div class="stat-number" id="totalPosts">0</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-label">PUBLISHED</div>
+        <div class="stat-number" id="publishedPosts">0</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-label">HIDDEN</div>
+        <div class="stat-number" id="hiddenPosts">0</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-label">REPORTS</div>
+        <div class="stat-number" id="totalReports">0</div>
+      </div>
+
+    </div>
+
+
+    <!-- POSTS -->
+
+    <div class="section-title">
+
+      <h2>POST MODERATION / 帖子管理</h2>
+
+      <select
+        id="postFilter"
+        style="width:auto;min-width:150px"
+      >
+        <option value="all">全部帖子</option>
+        <option value="published">正常显示</option>
+        <option value="hidden">已隐藏</option>
+        <option value="deleted">已删除</option>
+      </select>
+
+    </div>
+
+    <div id="postsList">
+      <div class="loading">正在加载帖子……</div>
+    </div>
+
+
+    <!-- REPORTS -->
+
+    <div class="section-title">
+
+      <h2>REPORT CENTER / 举报中心</h2>
+
+    </div>
+
+    <div id="reportsList">
+      <div class="loading">正在加载举报……</div>
+    </div>
+
+  </section>
+
+</main>
+
+
+<script type="module">
+
+import {
+  createClient
+} from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+
+/* =========================================
+   SUPABASE
+========================================= */
+
+const SUPABASE_URL =
+  "https://bwbbnljshggcwklktfum.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_34wdfJsFMKCpx846e7jtCA_sfNQJQs1";
+
+const supabase =
+  createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+
+/* =========================================
+   DOM
+========================================= */
+
+const loginPanel =
+  document.getElementById("loginPanel");
+
+const dashboard =
+  document.getElementById("dashboard");
+
+const loginForm =
+  document.getElementById("loginForm");
+
+const loginMessage =
+  document.getElementById("loginMessage");
+
+const adminMessage =
+  document.getElementById("adminMessage");
+
+const postsList =
+  document.getElementById("postsList");
+
+const reportsList =
+  document.getElementById("reportsList");
+
+const postFilter =
+  document.getElementById("postFilter");
+
+
+/* =========================================
+   HELPERS
+========================================= */
+
+function escapeHTML(value) {
+
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+
+}
+
+
+function showMessage(element, text, error = false) {
+
+  element.textContent = text;
+
+  element.className =
+    "message show" +
+    (error ? " error" : "");
+
+}
+
+
+function hideMessage(element) {
+
+  element.className = "message";
+
+}
+
+
+function formatDate(date) {
+
+  return new Date(date).toLocaleString(
+    "zh-CN",
+    {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit"
+    }
+  );
+
+}
+
+
+/* =========================================
+   CAT BACKGROUND
+========================================= */
+
+const cats = [
+  "🐱",
+  "😺",
+  "😸",
+  "😹",
+  "😻",
+  "😼",
+  "😽",
+  "🙀",
+  "😿",
+  "😾"
+];
+
+const catBg =
+  document.getElementById("catBg");
+
+for (let i = 0; i < 45; i++) {
+
+  const el =
+    document.createElement("span");
+
+  el.className = "cat";
+
+  el.textContent =
+    cats[Math.floor(Math.random() * cats.length)];
+
+  el.style.left =
+    Math.random() * 100 + "%";
+
+  el.style.top =
+    Math.random() * 100 + "%";
+
+  el.style.fontSize =
+    (20 + Math.random() * 55) + "px";
+
+  el.style.transform =
+    `rotate(${Math.random() * 40 - 20}deg)`;
+
+  catBg.appendChild(el);
+
+}
+
+
+/* =========================================
+   CLOCK
+========================================= */
+
+function updateClock() {
+
+  document.getElementById("currentTime")
+    .textContent =
+    new Date().toLocaleString("zh-CN");
+
+}
+
+updateClock();
+
+setInterval(updateClock, 1000);
+
+
+/* =========================================
+   ADMIN CHECK
+========================================= */
+
+async function checkAdmin(userId) {
+
+  const {
+    data,
+    error
+  } = await supabase
+    .from("admin_users")
+    .select("user_id")
+    .eq("user_id", userId)
+    .maybeSingle();
+
+  if (error) {
+
+    console.error(error);
+
+    return false;
+
+  }
+
+  return !!data;
+
+}
+
+
+/* =========================================
+   LOGIN
+========================================= */
+
+loginForm.addEventListener(
+  "submit",
+  async event => {
+
+    event.preventDefault();
+
+    hideMessage(loginMessage);
+
+    const email =
+      document.getElementById("email")
+        .value.trim();
+
+    const password =
+      document.getElementById("password")
+        .value;
+
+    showMessage(
+      loginMessage,
+      "正在验证管理员身份……"
+    );
+
+    const {
+      data,
+      error
+    } = await supabase.auth
+      .signInWithPassword({
+        email,
+        password
+      });
+
+    if (error) {
+
+      showMessage(
+        loginMessage,
+        "登录失败：" + error.message,
+        true
+      );
+
+      return;
+
+    }
+
+    const isAdmin =
+      await checkAdmin(data.user.id);
+
+    if (!isAdmin) {
+
+      await supabase.auth.signOut();
+
+      showMessage(
+        loginMessage,
+        "该账号没有管理员权限。",
+        true
+      );
+
+      return;
+
+    }
+
+    hideMessage(loginMessage);
+
+    openDashboard();
+
+  }
+);
+
+
+/* =========================================
+   OPEN DASHBOARD
+========================================= */
+
+async function openDashboard() {
+
+  const {
+    data
+  } = await supabase.auth.getUser();
+
+  if (!data.user) {
+
+    loginPanel.style.display = "block";
+    dashboard.classList.remove("active");
+
+    return;
+
+  }
+
+  const isAdmin =
+    await checkAdmin(data.user.id);
+
+  if (!isAdmin) {
+
+    await supabase.auth.signOut();
+
+    loginPanel.style.display = "block";
+    dashboard.classList.remove("active");
+
+    return;
+
+  }
+
+  loginPanel.style.display = "none";
+
+  dashboard.classList.add("active");
+
+  await loadDashboard();
+
+}
+
+
+/* =========================================
+   LOAD DASHBOARD
+========================================= */
+
+async function loadDashboard() {
+
+  hideMessage(adminMessage);
+
+  await Promise.all([
+    loadStats(),
+    loadPosts(),
+    loadReports()
+  ]);
+
+}
+
+
+/* =========================================
+   STATS
+========================================= */
+
+async function loadStats() {
+
+  const {
+    data,
+    error
+  } = await supabase
+    .from("posts")
+    .select("id,status");
+
+  if (error) {
+
+    showMessage(
+      adminMessage,
+      "统计加载失败：" + error.message,
+      true
+    );
+
+    return;
+
+  }
+
+  const total =
+    data.length;
+
+  const published =
+    data.filter(
+      x => x.status === "published"
+    ).length;
+
+  const hidden =
+    data.filter(
+      x => x.status === "hidden"
+    ).length;
+
+  document.getElementById("totalPosts")
+    .textContent = total;
+
+  document.getElementById("publishedPosts")
+    .textContent = published;
+
+  document.getElementById("hiddenPosts")
+    .textContent = hidden;
+
+
+  const {
+    count
+  } = await supabase
+    .from("reports")
+    .select("*", {
+      count: "exact",
+      head: true
+    });
+
+  document.getElementById("totalReports")
+    .textContent = count || 0;
+
+}
+
+
+/* =========================================
+   LOAD POSTS
+========================================= */
+
+async function loadPosts() {
+
+  postsList.innerHTML =
+    `<div class="loading">正在加载帖子……</div>`;
+
+  const filter =
+    postFilter.value;
+
+  let query =
+    supabase
+      .from("posts")
+      .select(`
+        id,
+        author_id,
+        created_at,
+        nickname,
+        title,
+        category,
+        content,
+        status,
+        like_count
+      `)
+      .order(
+        "created_at",
+        {
+          ascending: false
+        }
+      )
+      .limit(200);
+
+
+  if (filter !== "all") {
+
+    query =
+      query.eq(
+        "status",
+        filter
+      );
+
+  }
+
+
+  const {
+    data,
+    error
+  } = await query;
+
+
+  if (error) {
+
+    postsList.innerHTML = `
+      <div class="empty">
+        加载失败：${escapeHTML(error.message)}
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  if (!data.length) {
+
+    postsList.innerHTML =
+      `<div class="empty">没有找到帖子。</div>`;
+
+    return;
+
+  }
+
+
+  postsList.innerHTML =
+    data.map(renderPost).join("");
+
+
+  document
+    .querySelectorAll("[data-action]")
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        handlePostAction
+      );
+
+    });
+
+}
+
+
+/* =========================================
+   RENDER POST
+========================================= */
+
+function renderPost(post) {
+
+  const status =
+    post.status || "published";
+
+  const statusText = {
+    published: "正常显示",
+    hidden: "已隐藏",
+    deleted: "已删除"
+  }[status] || status;
+
+
+  const statusClass =
+    status;
+
+
+  let mainAction = "";
+
+  if (status === "published") {
+
+    mainAction = `
+      <button
+        class="light small"
+        data-action="hide"
+        data-id="${post.id}"
+      >
+        隐藏
+      </button>
+    `;
+
+  } else if (status === "hidden") {
+
+    mainAction = `
+      <button
+        class="light small"
+        data-action="restore"
+        data-id="${post.id}"
+      >
+        恢复
+      </button>
+    `;
+
+  }
+
+
+  return `
+    <article
+      class="post-card ${status === "hidden" ? "hidden-post" : ""}"
+    >
+
+      <div class="post-head">
+
+        <div>
+
+          <div class="post-title">
+            ${escapeHTML(post.title || "无标题")}
+          </div>
+
+          <div class="post-meta">
+
+            #${post.id}
+            ·
+            ${escapeHTML(post.category || "其他")}
+            ·
+            ${escapeHTML(post.nickname || "匿名猫猫")}
+            ·
+            ${formatDate(post.created_at)}
+
+          </div>
+
+        </div>
+
+        <span class="status ${statusClass}">
+          ${statusText}
+        </span>
+
+      </div>
+
+
+      <div class="post-body">
+        ${escapeHTML(post.content)}
+      </div>
+
+
+      <div class="post-foot">
+
+        <div class="post-info">
+
+          ❤️ ${post.like_count || 0}
+          &nbsp; / &nbsp;
+          AUTHOR:
+          ${escapeHTML(post.author_id)}
+
+        </div>
+
+
+        <div class="actions">
+
+          ${mainAction}
+
+          ${
+            status !== "deleted"
+            ? `
+              <button
+                class="danger small"
+                data-action="delete"
+                data-id="${post.id}"
+              >
+                删除
+              </button>
+            `
+            : ""
+          }
+
+        </div>
+
+      </div>
+
+    </article>
+  `;
+
+}
+
+
+/* =========================================
+   POST ACTIONS
+========================================= */
+
+async function handlePostAction(event) {
+
+  const button =
+    event.currentTarget;
+
+  const action =
+    button.dataset.action;
+
+  const id =
+    Number(button.dataset.id);
+
+
+  if (action === "delete") {
+
+    if (
+      !confirm(
+        "确定删除这条帖子吗？此操作会从正常内容中移除。"
+      )
+    ) {
+
+      return;
+
+    }
+
+  }
+
+
+  let newStatus;
+
+  if (action === "hide") {
+
+    newStatus = "hidden";
+
+  }
+
+  if (action === "restore") {
+
+    newStatus = "published";
+
+  }
+
+  if (action === "delete") {
+
+    newStatus = "deleted";
+
+  }
+
+
+  if (!newStatus) return;
+
+
+  button.disabled = true;
+
+
+  const {
+    error
+  } = await supabase
+    .from("posts")
+    .update({
+      status: newStatus
+    })
+    .eq("id", id);
+
+
+  if (error) {
+
+    showMessage(
+      adminMessage,
+      "操作失败：" + error.message,
+      true
+    );
+
+    button.disabled = false;
+
+    return;
+
+  }
+
+
+  showMessage(
+    adminMessage,
+    `帖子 #${id} 已${newStatus === "hidden"
+      ? "隐藏"
+      : newStatus === "published"
+        ? "恢复"
+        : "删除"}。`
+  );
+
+
+  await loadDashboard();
+
+}
+
+
+/* =========================================
+   REPORTS
+========================================= */
+
+async function loadReports() {
+
+  reportsList.innerHTML =
+    `<div class="loading">正在加载举报……</div>`;
+
+
+  const {
+    data,
+    error
+  } = await supabase
+    .from("reports")
+    .select(`
+      id,
+      created_at,
+      post_id,
+      reporter_id,
+      reason
+    `)
+    .order(
+      "created_at",
+      {
+        ascending: false
+      }
+    )
+    .limit(200);
+
+
+  if (error) {
+
+    reportsList.innerHTML = `
+      <div class="empty">
+        举报加载失败：
+        ${escapeHTML(error.message)}
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  if (!data.length) {
+
+    reportsList.innerHTML =
+      `<div class="empty">目前没有举报。</div>`;
+
+    return;
+
+  }
+
+
+  reportsList.innerHTML =
+    data.map(report => `
+
+      <div class="report-card">
+
+        <div class="report-title">
+
+          举报 #${report.id}
+          ·
+          帖子 #${report.post_id}
+
+        </div>
+
+        <div class="post-meta">
+
+          ${formatDate(report.created_at)}
+
+          ·
+
+          Reporter:
+          ${escapeHTML(report.reporter_id)}
+
+        </div>
+
+        <div class="report-reason">
+
+          ${escapeHTML(report.reason || "未填写原因")}
+
+        </div>
+
+        <div class="actions">
+
+          <button
+            class="light small"
+            data-report-post="${report.post_id}"
+          >
+            查看 / 管理帖子
+          </button>
+
+        </div>
+
+      </div>
+
+    `).join("");
+
+
+  document
+    .querySelectorAll("[data-report-post]")
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          postFilter.value = "all";
+
+          loadPosts();
+
+          window.scrollTo({
+            top:
+              document
+                .getElementById("postsList")
+                .getBoundingClientRect()
+                .top +
+              window.scrollY -
+              100,
+
+            behavior: "smooth"
+          });
+
+        }
+      );
+
+    });
+
+}
+
+
+/* =========================================
+   FILTER
+========================================= */
+
+postFilter.addEventListener(
+  "change",
+  loadPosts
+);
+
+
+/* =========================================
+   REFRESH
+========================================= */
+
+document
+  .getElementById("refreshBtn")
+  .addEventListener(
+    "click",
+    loadDashboard
+  );
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+document
+  .getElementById("logoutBtn")
+  .addEventListener(
+    "click",
+    async () => {
+
+      await supabase.auth.signOut();
+
+      dashboard.classList.remove("active");
+
+      loginPanel.style.display = "block";
+
+      loginForm.reset();
+
+    }
+  );
+
+
+/* =========================================
+   SESSION
+========================================= */
+
+supabase.auth.onAuthStateChange(
+  async (event, session) => {
+
+    if (
+      session &&
+      session.user
+    ) {
+
+      const isAdmin =
+        await checkAdmin(
+          session.user.id
+        );
+
+      if (isAdmin) {
+
+        loginPanel.style.display = "none";
+
+        dashboard.classList.add("active");
+
+        await loadDashboard();
+
+      }
+
+    }
+
+  }
+);
+
+
+/* =========================================
+   START
+========================================= */
+
+openDashboard();
+
+</script>
+
+</body>
+</html>
