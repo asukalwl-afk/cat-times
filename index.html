@@ -2,7 +2,11 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  >
 
   <title>CAT TIMES｜校园匿名吐槽墙</title>
 
@@ -41,7 +45,6 @@
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="CAT TIMES｜校园匿名吐槽墙">
-
   <meta
     name="twitter:description"
     content="一个属于校园的匿名吐槽与交流空间。"
@@ -58,16 +61,18 @@
   >
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Noto+Sans+SC:wght@400;500;700;900&display=swap');
+    @import url(
+      'https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=UnifrakturCook:wght@700&display=swap'
+    );
 
     :root {
-      --bg: #f4f4f1;
-      --paper: #fff;
-      --ink: #111;
+      --ink: #050505;
+      --paper: #f4f4f0;
+      --white: #ffffff;
       --muted: #777;
-      --line: #151515;
-      --soft: #e9e9e5;
-      --danger: #b00020;
+      --line: #111;
+      --soft-line: #cfcfc9;
+      --danger: #8b0000;
       --max: 1120px;
     }
 
@@ -81,28 +86,29 @@
 
     body {
       margin: 0;
+      background: var(--paper);
       color: var(--ink);
-      background:
-        radial-gradient(circle at 10% 20%, rgba(0,0,0,.025), transparent 20%),
-        radial-gradient(circle at 80% 70%, rgba(0,0,0,.025), transparent 20%),
-        var(--bg);
-      font-family: "Noto Sans SC", system-ui, sans-serif;
-      min-height: 100vh;
+      font-family:
+        "Noto Sans SC",
+        Arial,
+        sans-serif;
+      overflow-x: hidden;
     }
 
     body::before {
-      content:
-        "🐱  🐈  🐱  🐈‍⬛  🐱  🐈  🐱  🐈‍⬛  🐱  🐈  🐱  🐈‍⬛  🐱  🐈  🐱  🐈‍⬛  🐱  🐈  🐱  🐈‍⬛";
+      content: "";
       position: fixed;
-      inset: -30px;
-      z-index: -1;
+      inset: 0;
       pointer-events: none;
-      opacity: .045;
-      font-size: 48px;
-      line-height: 2;
-      word-spacing: 45px;
-      transform: rotate(-8deg) scale(1.15);
-      overflow: hidden;
+      z-index: -1;
+      opacity: .075;
+      background-image:
+        radial-gradient(
+          circle at 10% 20%,
+          #000 0 1px,
+          transparent 1px
+        );
+      background-size: 5px 5px;
     }
 
     button,
@@ -117,71 +123,105 @@
     }
 
     .container {
-      width: min(calc(100% - 32px), var(--max));
+      width: min(
+        calc(100% - 32px),
+        var(--max)
+      );
       margin: auto;
+    }
+
+    /* CAT BACKGROUND */
+
+    #catBackground {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    .bg-cat {
+      position: absolute;
+      opacity: .055;
+      user-select: none;
+      filter: grayscale(1);
     }
 
     /* HEADER */
 
     header {
-      border-bottom: 4px solid var(--line);
-      background: rgba(255,255,255,.92);
-      backdrop-filter: blur(10px);
-      position: sticky;
-      top: 0;
-      z-index: 50;
+      background: rgba(255,255,255,.95);
+      border-bottom: 4px solid var(--ink);
     }
 
     .masthead {
       display: grid;
       grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      min-height: 92px;
       gap: 20px;
+      padding: 18px 0;
     }
 
     .date {
       font-size: 12px;
-      letter-spacing: .12em;
+      font-weight: 900;
       text-transform: uppercase;
     }
 
     .logo {
-      text-align: center;
-      font-family: "UnifrakturCook", "Old English Text MT", serif;
-      font-size: clamp(42px, 7vw, 74px);
+      font-family: "UnifrakturCook", serif;
+      font-size: clamp(45px, 8vw, 88px);
       line-height: .9;
-      letter-spacing: -2px;
       white-space: nowrap;
+      text-align: center;
+      letter-spacing: -3px;
     }
 
     .tagline {
       text-align: right;
-      font-size: 12px;
-      letter-spacing: .12em;
-      font-weight: 700;
-    }
-
-    nav {
-      border-top: 1px solid var(--line);
-      display: flex;
-      justify-content: center;
-      gap: 0;
-      overflow-x: auto;
-    }
-
-    nav button {
-      border: 0;
-      border-left: 1px solid var(--line);
-      background: transparent;
-      padding: 10px 18px;
+      font-size: 11px;
+      line-height: 1.5;
       font-weight: 900;
-      font-size: 13px;
+      letter-spacing: 1px;
+    }
+
+    .auth-area {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .account-btn {
+      border: 2px solid var(--ink);
+      background: var(--ink);
+      color: white;
+      padding: 8px 11px;
+      font-size: 12px;
+      font-weight: 900;
       white-space: nowrap;
     }
 
-    nav button:last-child {
-      border-right: 1px solid var(--line);
+    .account-btn:hover {
+      background: white;
+      color: var(--ink);
+    }
+
+    nav {
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      border-top: 1px solid var(--soft-line);
+    }
+
+    nav button {
+      flex: 0 0 auto;
+      border: 0;
+      border-right: 1px solid var(--soft-line);
+      background: white;
+      padding: 11px 14px;
+      font-size: 12px;
+      font-weight: 900;
     }
 
     nav button:hover,
@@ -193,114 +233,106 @@
     /* HERO */
 
     .hero {
-      padding: 46px 0 28px;
-      border-bottom: 1px solid var(--line);
+      padding: 52px 0 28px;
+      border-bottom: 2px solid var(--ink);
     }
 
     .hero h1 {
       margin: 0;
-      font-size: clamp(36px, 7vw, 78px);
-      line-height: .95;
-      font-weight: 900;
-      letter-spacing: -.06em;
-      max-width: 900px;
+      font-size: clamp(34px, 6vw, 68px);
+      line-height: 1;
+      letter-spacing: -2px;
     }
 
     .hero p {
-      margin: 18px 0 0;
-      max-width: 720px;
-      font-size: 15px;
-      line-height: 1.8;
+      max-width: 680px;
+      margin: 22px 0 0;
       color: #444;
+      font-size: 14px;
+      line-height: 1.9;
     }
 
     .hero-rule {
-      margin-top: 28px;
+      margin-top: 25px;
       height: 8px;
-      background: repeating-linear-gradient(
-        90deg,
-        #111 0 18px,
-        transparent 18px 24px
-      );
+      border-top: 2px solid var(--ink);
+      border-bottom: 2px solid var(--ink);
     }
 
     /* CONTROLS */
 
     .controls {
       display: grid;
-      grid-template-columns: 1fr auto auto;
+      grid-template-columns: 1fr auto;
       gap: 10px;
-      padding: 20px 0;
-      border-bottom: 2px solid var(--line);
+      margin: 24px 0;
     }
 
     .search {
-      border: 2px solid var(--line);
+      width: 100%;
+      border: 2px solid var(--ink);
       background: white;
-      min-height: 44px;
-      padding: 0 14px;
+      padding: 13px 15px;
       outline: none;
     }
 
     .search:focus {
-      box-shadow: 4px 4px 0 var(--ink);
+      box-shadow: 5px 5px 0 var(--ink);
     }
 
-    select,
-    .outline-btn {
-      min-height: 44px;
-      border: 2px solid var(--line);
-      background: white;
-      padding: 0 14px;
-      font-weight: 700;
-    }
-
-    .outline-btn:hover {
+    .publish-btn {
+      border: 2px solid var(--ink);
       background: var(--ink);
       color: white;
+      padding: 12px 22px;
+      font-weight: 900;
+    }
+
+    .publish-btn:hover {
+      background: white;
+      color: var(--ink);
     }
 
     /* HOT BOARD */
 
     .hot-board {
-      margin: 22px 0 4px;
-      border: 2px solid var(--line);
+      border: 2px solid var(--ink);
       background: white;
-      padding: 16px;
-      box-shadow: 5px 5px 0 rgba(0,0,0,.08);
+      margin-bottom: 28px;
     }
 
-    .hot-board-head {
+    .section-head {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
-      border-bottom: 1px solid var(--line);
-      padding-bottom: 10px;
-      margin-bottom: 10px;
+      gap: 15px;
+      padding: 13px 16px;
+      background: var(--ink);
+      color: white;
     }
 
-    .hot-board-head strong {
-      font-size: 18px;
+    .section-head h2 {
+      margin: 0;
+      font-size: 15px;
       font-weight: 900;
+    }
+
+    .section-head span {
+      font-size: 11px;
+      opacity: .7;
     }
 
     .hot-list {
       display: grid;
-      gap: 7px;
     }
 
     .hot-item {
       display: grid;
-      grid-template-columns: 34px 1fr auto;
-      gap: 10px;
+      grid-template-columns: 36px 1fr auto;
+      gap: 12px;
       align-items: center;
-      width: 100%;
-      border: 0;
-      border-bottom: 1px dashed #aaa;
-      background: transparent;
-      padding: 8px 0;
-      text-align: left;
+      padding: 12px 15px;
+      border-bottom: 1px solid var(--soft-line);
       cursor: pointer;
     }
 
@@ -309,281 +341,310 @@
     }
 
     .hot-item:hover {
-      background: #f1f1ed;
+      background: #eee;
     }
 
     .hot-rank {
-      font-family: Georgia, serif;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 900;
     }
 
     .hot-title {
-      font-weight: 800;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-    }
-
-    .hot-likes {
-      font-size: 12px;
-      color: #666;
-      white-space: nowrap;
-    }
-
-    /* CAT IDENTITY */
-
-    .cat-id {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-weight: 800;
-    }
-
-    .cat-avatar {
-      font-size: 18px;
-      line-height: 1;
-    }
-
-    .cat-code {
-      color: #777;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .floor {
-      color: #777;
-      font-size: 11px;
-      margin-right: 6px;
-    }
-
-    /* POST */
-
-    main {
-      padding-bottom: 80px;
-    }
-
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 22px 0 12px;
-      gap: 20px;
-    }
-
-    .section-head h2 {
-      margin: 0;
-      font-size: 22px;
+      font-size: 13px;
       font-weight: 900;
     }
 
-    .count {
+    .hot-like {
       font-size: 12px;
-      color: var(--muted);
+      font-weight: 900;
     }
 
-    .posts {
-      display: grid;
-      gap: 18px;
+    /* POSTS */
+
+    .feed-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      border-bottom: 4px solid var(--ink);
+      margin-bottom: 15px;
+    }
+
+    .feed-head h2 {
+      margin: 0 0 8px;
+      font-size: 24px;
+    }
+
+    #postCount {
+      color: var(--muted);
+      font-size: 12px;
     }
 
     .post {
-      background: rgba(255,255,255,.96);
-      border: 2px solid var(--line);
-      padding: 22px;
-      box-shadow: 6px 6px 0 rgba(0,0,0,.08);
-      scroll-margin-top: 140px;
-      transition: .15s;
+      background: white;
+      border: 2px solid var(--ink);
+      margin-bottom: 18px;
+      box-shadow: 5px 5px 0 rgba(0,0,0,.12);
+      scroll-margin-top: 100px;
     }
 
-    .post:hover {
-      box-shadow: 8px 8px 0 rgba(0,0,0,.13);
-      transform: translate(-1px,-1px);
+    .post-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--soft-line);
     }
 
-    .post-meta {
+    .post-author {
       display: flex;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
+      gap: 9px;
+      min-width: 0;
+    }
+
+    .avatar {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      background: #eee;
+      border: 1px solid #aaa;
+      font-size: 20px;
+      flex: 0 0 auto;
+    }
+
+    .author-name {
       font-size: 12px;
-      color: #666;
-      margin-bottom: 12px;
+      font-weight: 900;
+    }
+
+    .author-sub {
+      color: #888;
+      font-size: 10px;
+      margin-top: 2px;
     }
 
     .category {
-      border: 1px solid var(--line);
+      border: 1px solid var(--ink);
       padding: 3px 7px;
-      color: var(--ink);
+      font-size: 10px;
       font-weight: 900;
-      background: white;
+      white-space: nowrap;
+      height: fit-content;
     }
 
-    .post h3 {
+    .post-body {
+      padding: 18px 16px 15px;
+    }
+
+    .post-title {
       margin: 0 0 10px;
-      font-size: clamp(20px, 3vw, 30px);
-      line-height: 1.2;
-      font-weight: 900;
+      font-size: 23px;
+      line-height: 1.35;
     }
 
     .post-content {
+      margin: 0;
+      color: #333;
+      font-size: 14px;
+      line-height: 1.9;
       white-space: pre-wrap;
-      line-height: 1.85;
-      font-size: 15px;
       word-break: break-word;
     }
 
-    .post-footer {
-      margin-top: 18px;
-      padding-top: 14px;
-      border-top: 1px dashed #999;
+    .post-meta {
+      color: #888;
+      font-size: 11px;
+      margin-top: 13px;
+    }
+
+    .post-actions {
       display: flex;
+      align-items: center;
       gap: 8px;
-      flex-wrap: wrap;
+      padding: 10px 16px;
+      border-top: 1px solid var(--soft-line);
+      background: #fafaf7;
     }
 
     .action {
-      border: 1px solid var(--line);
+      border: 1px solid #999;
       background: white;
-      padding: 7px 11px;
-      font-size: 13px;
-      font-weight: 700;
+      padding: 7px 10px;
+      font-size: 11px;
+      font-weight: 900;
     }
 
-    .action:hover,
-    .action.liked {
+    .action:hover {
       background: var(--ink);
       color: white;
+      border-color: var(--ink);
+    }
+
+    .like-btn.liked {
+      background: var(--ink);
+      color: white;
+    }
+
+    .report-btn {
+      margin-left: auto;
+      color: #777;
     }
 
     /* COMMENTS */
 
     .comments {
-      margin-top: 16px;
-      border-top: 1px solid var(--line);
-      padding-top: 16px;
-      display: none;
+      border-top: 2px solid var(--ink);
+      background: #f5f5f1;
     }
 
-    .comments.open {
-      display: block;
-    }
-
-    .comment-list {
-      display: grid;
-      gap: 9px;
-      margin-bottom: 12px;
+    .comments-head {
+      padding: 11px 16px;
+      font-size: 12px;
+      font-weight: 900;
+      border-bottom: 1px solid #ccc;
     }
 
     .comment {
-      background: #f1f1ed;
-      border-left: 3px solid var(--ink);
-      padding: 9px 11px;
+      padding: 12px 16px;
+      border-bottom: 1px solid #ddd;
     }
 
-    .comment-name {
+    .comment-top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 5px;
+    }
+
+    .comment .avatar {
+      width: 26px;
+      height: 26px;
+      font-size: 15px;
+    }
+
+    .floor {
+      font-size: 11px;
       font-weight: 900;
-      font-size: 12px;
-      margin-bottom: 4px;
     }
 
-    .comment-body {
+    .comment-author {
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .comment-time {
+      color: #999;
+      font-size: 10px;
+    }
+
+    .comment-content {
+      margin-left: 34px;
+      font-size: 13px;
+      line-height: 1.7;
       white-space: pre-wrap;
       word-break: break-word;
-      font-size: 13px;
-      line-height: 1.6;
     }
 
     .comment-form {
       display: grid;
-      grid-template-columns: 130px 1fr auto;
-      gap: 7px;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      padding: 12px 16px;
     }
 
-    .comment-form input,
     .comment-form textarea {
-      border: 1px solid var(--line);
+      min-height: 44px;
+      resize: vertical;
+      border: 1px solid #999;
       padding: 9px;
       background: white;
     }
 
-    .comment-form textarea {
-      resize: vertical;
-      min-height: 42px;
+    .comment-submit {
+      border: 2px solid var(--ink);
+      background: var(--ink);
+      color: white;
+      padding: 8px 14px;
+      font-weight: 900;
     }
 
     /* EMPTY / LOADING */
 
     .state {
+      border: 2px dashed #999;
+      background: white;
       text-align: center;
-      padding: 70px 20px;
-      border: 2px dashed #777;
-      background: rgba(255,255,255,.6);
+      padding: 55px 20px;
+      color: #666;
     }
 
     .state .cat {
-      font-size: 52px;
+      font-size: 42px;
       margin-bottom: 10px;
     }
 
     /* MODAL */
 
     .modal-backdrop {
-      display: none;
       position: fixed;
       inset: 0;
       z-index: 100;
-      background: rgba(0,0,0,.65);
-      padding: 20px;
-      overflow-y: auto;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: rgba(0,0,0,.68);
     }
 
     .modal-backdrop.open {
       display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .modal {
-      width: min(620px, 100%);
+      width: min(100%, 580px);
+      max-height: 92vh;
+      overflow-y: auto;
       background: white;
       border: 3px solid var(--ink);
-      box-shadow: 12px 12px 0 rgba(0,0,0,.35);
+      box-shadow: 10px 10px 0 rgba(0,0,0,.3);
     }
 
     .modal-header {
-      padding: 18px 20px;
-      border-bottom: 2px solid var(--line);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 15px 17px;
+      border-bottom: 2px solid var(--ink);
     }
 
     .modal-header h2 {
       margin: 0;
-      font-size: 25px;
-      font-weight: 900;
+      font-size: 19px;
     }
 
     .close {
       border: 0;
       background: transparent;
-      font-size: 26px;
-      font-weight: 900;
+      font-size: 27px;
+      line-height: 1;
     }
 
     .modal-body {
-      padding: 20px;
+      padding: 18px;
     }
 
     .field {
-      margin-bottom: 16px;
+      margin-bottom: 15px;
     }
 
     .field label {
       display: block;
       margin-bottom: 6px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 900;
     }
 
@@ -591,21 +652,21 @@
     .field textarea,
     .field select {
       width: 100%;
-      border: 2px solid var(--line);
-      padding: 11px;
+      border: 1px solid #999;
       background: white;
+      padding: 10px;
       outline: none;
     }
 
     .field textarea {
-      min-height: 160px;
+      min-height: 170px;
       resize: vertical;
     }
 
     .field input:focus,
     .field textarea:focus,
     .field select:focus {
-      box-shadow: 4px 4px 0 var(--ink);
+      border: 2px solid var(--ink);
     }
 
     .form-bottom {
@@ -616,10 +677,10 @@
     }
 
     .submit {
+      border: 2px solid var(--ink);
       background: var(--ink);
       color: white;
-      border: 2px solid var(--ink);
-      padding: 12px 22px;
+      padding: 11px 22px;
       font-weight: 900;
     }
 
@@ -631,6 +692,97 @@
     .char-count {
       color: var(--muted);
       font-size: 12px;
+    }
+
+    /* ACCOUNT */
+
+    .auth-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 2px solid var(--ink);
+      margin-bottom: 18px;
+    }
+
+    .auth-tab {
+      border: 0;
+      background: #eee;
+      padding: 10px;
+      font-weight: 900;
+    }
+
+    .auth-tab.active {
+      background: var(--ink);
+      color: white;
+    }
+
+    .auth-note {
+      background: #f1f1ed;
+      border-left: 3px solid var(--ink);
+      padding: 11px 13px;
+      font-size: 12px;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .auth-error {
+      color: var(--danger);
+      font-size: 12px;
+      line-height: 1.6;
+      margin-top: 8px;
+    }
+
+    .account-card {
+      border: 2px solid var(--ink);
+      padding: 17px;
+      background: #f8f8f5;
+      margin-bottom: 16px;
+    }
+
+    .account-cat {
+      font-size: 44px;
+    }
+
+    .account-name {
+      margin-top: 7px;
+      font-size: 21px;
+      font-weight: 900;
+    }
+
+    .account-email {
+      color: #777;
+      font-size: 12px;
+      margin-top: 4px;
+      word-break: break-all;
+    }
+
+    .account-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    .account-stat {
+      border: 1px solid #aaa;
+      background: white;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .account-stat strong {
+      display: block;
+      font-size: 21px;
+    }
+
+    .account-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .account-actions .action {
+      flex: 1;
+      min-width: 130px;
     }
 
     /* TOAST */
@@ -661,6 +813,7 @@
 
     footer {
       border-top: 4px solid var(--line);
+      margin-top: 50px;
       padding: 28px 0;
       background: white;
     }
@@ -676,14 +829,18 @@
     /* MOBILE */
 
     @media (max-width: 720px) {
+
       .container {
-        width: min(calc(100% - 20px), var(--max));
+        width: min(
+          calc(100% - 20px),
+          var(--max)
+        );
       }
 
       .masthead {
         grid-template-columns: 1fr;
-        gap: 5px;
-        padding: 13px 0;
+        gap: 8px;
+        padding: 14px 0;
       }
 
       .date,
@@ -695,24 +852,28 @@
         order: -1;
       }
 
+      .auth-area {
+        justify-content: center;
+        flex-direction: column;
+      }
+
       .controls {
         grid-template-columns: 1fr;
       }
 
       .post {
-        padding: 17px;
+        box-shadow: 3px 3px 0 rgba(0,0,0,.12);
+      }
+
+      .post-title {
+        font-size: 20px;
       }
 
       .comment-form {
         grid-template-columns: 1fr;
       }
 
-      .form-bottom {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .submit {
+      .comment-submit {
         width: 100%;
       }
 
@@ -721,7 +882,11 @@
       }
 
       .hot-title {
-        font-size: 13px;
+        font-size: 12px;
+      }
+
+      .post-header {
+        align-items: flex-start;
       }
     }
   </style>
@@ -729,36 +894,91 @@
 
 <body>
 
+<div id="catBackground"></div>
+
 <header>
+
   <div class="container masthead">
+
     <div class="date" id="today"></div>
 
-    <div class="logo">CAT TIMES</div>
-
-    <div class="tagline">
-      THE CAMPUS<br>
-      UNDERGROUND
+    <div class="logo">
+      CAT TIMES
     </div>
+
+    <div class="tagline auth-area">
+
+      <div>
+        THE CAMPUS<br>
+        UNDERGROUND
+      </div>
+
+      <button
+        class="account-btn"
+        id="authBtn"
+        type="button"
+      >
+        🐱 账号
+      </button>
+
+    </div>
+
   </div>
 
   <nav>
-    <button class="active" data-sort="latest">最新</button>
-    <button data-sort="hot">热门</button>
-    <button data-category="all">全部</button>
-    <button data-category="校园生活">校园生活</button>
-    <button data-category="学习压力">学习压力</button>
-    <button data-category="食堂住宿">食堂住宿</button>
-    <button data-category="老师教学">老师教学</button>
-    <button data-category="社团活动">社团活动</button>
-    <button data-category="校园设施">校园设施</button>
-    <button data-category="其他">其他</button>
+
+    <button class="active" data-sort="latest">
+      最新
+    </button>
+
+    <button data-sort="hot">
+      热门
+    </button>
+
+    <button data-category="all">
+      全部
+    </button>
+
+    <button data-category="校园生活">
+      校园生活
+    </button>
+
+    <button data-category="学习压力">
+      学习压力
+    </button>
+
+    <button data-category="食堂住宿">
+      食堂住宿
+    </button>
+
+    <button data-category="老师教学">
+      老师教学
+    </button>
+
+    <button data-category="社团活动">
+      社团活动
+    </button>
+
+    <button data-category="校园设施">
+      校园设施
+    </button>
+
+    <button data-category="其他">
+      其他
+    </button>
+
   </nav>
+
 </header>
 
-<div class="container">
+
+<main class="container">
 
   <section class="hero">
-    <h1>这里，什么都可以说。</h1>
+
+    <h1>
+      这里，什么都可以说。
+    </h1>
 
     <p>
       CAT TIMES 是一个匿名校园交流墙。
@@ -767,7 +987,9 @@
     </p>
 
     <div class="hero-rule"></div>
+
   </section>
+
 
   <section class="controls">
 
@@ -779,73 +1001,59 @@
       autocomplete="off"
     >
 
-    <select id="categoryFilter">
-      <option value="all">全部分类</option>
-      <option value="校园生活">校园生活</option>
-      <option value="学习压力">学习压力</option>
-      <option value="食堂住宿">食堂住宿</option>
-      <option value="老师教学">老师教学</option>
-      <option value="社团活动">社团活动</option>
-      <option value="校园设施">校园设施</option>
-      <option value="其他">其他</option>
-    </select>
-
-    <button class="outline-btn" id="newPostBtn">
+    <button
+      class="publish-btn"
+      id="openPost"
+      type="button"
+    >
       ＋ 发布吐槽
     </button>
 
   </section>
 
-  <!-- V2 热门榜 -->
 
   <section class="hot-board">
 
-    <div class="hot-board-head">
-      <strong>🔥 今日热门榜</strong>
-      <span class="count">按点赞数</span>
-    </div>
-
-    <div id="hotList" class="hot-list">
-      <div style="color:#777;font-size:13px">
-        猫猫正在统计热门……
-      </div>
-    </div>
-
-  </section>
-
-  <main>
-
     <div class="section-head">
 
-      <h2 id="feedTitle">
-        最新吐槽
+      <h2>
+        🔥 今日热门榜
       </h2>
 
-      <span class="count" id="postCount">
-        加载中……
+      <span>
+        按点赞数排序
       </span>
 
     </div>
 
-    <div id="posts" class="posts">
+    <div
+      class="hot-list"
+      id="hotList"
+    ></div>
 
-      <div class="state">
+  </section>
 
-        <div class="cat">
-          🐱
-        </div>
 
-        <strong>
-          正在召唤校园猫猫……
-        </strong>
+  <section>
 
-      </div>
+    <div class="feed-head">
+
+      <h2>
+        校园现场
+      </h2>
+
+      <span id="postCount">
+        0 篇
+      </span>
 
     </div>
 
-  </main>
+    <div id="posts"></div>
 
-</div>
+  </section>
+
+</main>
+
 
 <footer>
 
@@ -856,7 +1064,7 @@
     </div>
 
     <div>
-      ANONYMOUS · CAMPUS · COMMUNITY
+      SAY WHAT YOU REALLY THINK.
     </div>
 
   </div>
@@ -864,9 +1072,456 @@
 </footer>
 
 
-<!-- 发布窗口 -->
+<!-- =========================
+     ACCOUNT MODAL
+========================= -->
 
-<div class="modal-backdrop" id="postModal">
+<div
+  class="modal-backdrop"
+  id="authModal"
+>
+
+  <div class="modal">
+
+    <div class="modal-header">
+
+      <h2>
+        CAT TIMES 账号
+      </h2>
+
+      <button
+        class="close"
+        id="closeAuth"
+        type="button"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div class="modal-body">
+
+
+      <!-- 未登录 -->
+
+      <div id="authSignedOut">
+
+        <div class="auth-tabs">
+
+          <button
+            class="auth-tab active"
+            id="loginTab"
+            type="button"
+          >
+            登录
+          </button>
+
+          <button
+            class="auth-tab"
+            id="registerTab"
+            type="button"
+          >
+            注册
+          </button>
+
+        </div>
+
+
+        <div class="auth-note">
+
+          匿名状态下也可以正常浏览、发帖和评论。
+
+          <br>
+
+          注册会把当前匿名账号绑定到邮箱，
+
+          <strong>
+            原来的帖子、评论和点赞会继续保留。
+          </strong>
+
+        </div>
+
+
+        <!-- LOGIN -->
+
+        <form id="loginForm">
+
+          <div class="field">
+
+            <label>
+              邮箱
+            </label>
+
+            <input
+              id="loginEmail"
+              type="email"
+              autocomplete="email"
+              required
+              placeholder="you@example.com"
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label>
+              密码
+            </label>
+
+            <input
+              id="loginPassword"
+              type="password"
+              autocomplete="current-password"
+              required
+              placeholder="请输入密码"
+            >
+
+          </div>
+
+
+          <button
+            class="submit"
+            type="submit"
+            style="width:100%"
+          >
+            登录
+          </button>
+
+
+          <div
+            class="auth-error"
+            id="loginError"
+          ></div>
+
+        </form>
+
+
+        <!-- REGISTER -->
+
+        <form
+          id="registerForm"
+          style="display:none"
+        >
+
+          <div class="field">
+
+            <label>
+              邮箱
+            </label>
+
+            <input
+              id="registerEmail"
+              type="email"
+              autocomplete="email"
+              required
+              placeholder="you@example.com"
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label>
+              密码
+            </label>
+
+            <input
+              id="registerPassword"
+              type="password"
+              autocomplete="new-password"
+              minlength="6"
+              required
+              placeholder="至少 6 位"
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label>
+              确认密码
+            </label>
+
+            <input
+              id="registerPassword2"
+              type="password"
+              autocomplete="new-password"
+              minlength="6"
+              required
+              placeholder="再输入一次密码"
+            >
+
+          </div>
+
+
+          <button
+            class="submit"
+            type="submit"
+            style="width:100%"
+          >
+            绑定邮箱并注册
+          </button>
+
+
+          <div
+            class="auth-error"
+            id="registerError"
+          ></div>
+
+        </form>
+
+
+        <!-- PASSWORD AFTER EMAIL VERIFY -->
+
+        <div
+          id="passwordSetupBox"
+          style="display:none;margin-top:18px"
+        >
+
+          <div class="auth-note">
+
+            邮箱已经验证。
+
+            <br>
+
+            现在给这个账号设置密码，
+            以后就可以使用「邮箱 + 密码」登录。
+
+          </div>
+
+
+          <form id="passwordForm">
+
+            <div class="field">
+
+              <label>
+                设置新密码
+              </label>
+
+              <input
+                id="newPassword"
+                type="password"
+                autocomplete="new-password"
+                minlength="6"
+                required
+                placeholder="至少 6 位"
+              >
+
+            </div>
+
+
+            <div class="field">
+
+              <label>
+                确认新密码
+              </label>
+
+              <input
+                id="newPassword2"
+                type="password"
+                autocomplete="new-password"
+                minlength="6"
+                required
+                placeholder="再输入一次密码"
+              >
+
+            </div>
+
+
+            <button
+              class="submit"
+              type="submit"
+              style="width:100%"
+            >
+              设置密码
+            </button>
+
+
+            <div
+              class="auth-error"
+              id="passwordError"
+            ></div>
+
+          </form>
+
+        </div>
+
+      </div>
+
+
+      <!-- 已登录 -->
+
+      <div
+        id="authSignedIn"
+        style="display:none"
+      >
+
+        <div class="account-card">
+
+          <div
+            class="account-cat"
+            id="accountCat"
+          >
+            🐱
+          </div>
+
+          <div
+            class="account-name"
+            id="accountName"
+          >
+            猫猫
+          </div>
+
+          <div
+            class="account-email"
+            id="accountEmail"
+          ></div>
+
+
+          <div class="account-stats">
+
+            <div class="account-stat">
+
+              <strong
+                id="accountPostCount"
+              >
+                —
+              </strong>
+
+              帖子
+
+            </div>
+
+
+            <div class="account-stat">
+
+              <strong
+                id="accountCommentCount"
+              >
+                —
+              </strong>
+
+              评论
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="auth-note"
+          id="accountNote"
+        ></div>
+
+
+        <div class="account-actions">
+
+          <button
+            class="action"
+            id="openPasswordBtn"
+            type="button"
+          >
+            设置 / 修改密码
+          </button>
+
+
+          <button
+            class="action"
+            id="logoutBtn"
+            type="button"
+          >
+            退出登录
+          </button>
+
+        </div>
+
+
+        <div
+          id="signedInPasswordBox"
+          style="display:none;margin-top:18px"
+        >
+
+          <form
+            id="signedInPasswordForm"
+          >
+
+            <div class="field">
+
+              <label>
+                新密码
+              </label>
+
+              <input
+                id="signedInNewPassword"
+                type="password"
+                autocomplete="new-password"
+                minlength="6"
+                required
+                placeholder="至少 6 位"
+              >
+
+            </div>
+
+
+            <div class="field">
+
+              <label>
+                确认新密码
+              </label>
+
+              <input
+                id="signedInNewPassword2"
+                type="password"
+                autocomplete="new-password"
+                minlength="6"
+                required
+                placeholder="再输入一次密码"
+              >
+
+            </div>
+
+
+            <button
+              class="submit"
+              type="submit"
+              style="width:100%"
+            >
+              保存密码
+            </button>
+
+
+            <div
+              class="auth-error"
+              id="signedInPasswordError"
+            ></div>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     POST MODAL
+========================= -->
+
+<div
+  class="modal-backdrop"
+  id="postModal"
+>
 
   <div class="modal">
 
@@ -878,16 +1533,19 @@
 
       <button
         class="close"
-        id="closeModal"
+        id="closePost"
+        type="button"
       >
         ×
       </button>
 
     </div>
 
+
     <div class="modal-body">
 
       <form id="postForm">
+
 
         <div class="field">
 
@@ -903,13 +1561,17 @@
 
         </div>
 
+
         <div class="field">
 
           <label>
             分类
           </label>
 
-          <select id="postCategory" required>
+          <select
+            id="postCategory"
+            required
+          >
 
             <option value="校园生活">
               校园生活
@@ -943,6 +1605,7 @@
 
         </div>
 
+
         <div class="field">
 
           <label>
@@ -958,6 +1621,7 @@
 
         </div>
 
+
         <div class="field">
 
           <label>
@@ -972,6 +1636,7 @@
           ></textarea>
 
         </div>
+
 
         <div class="form-bottom">
 
@@ -1001,9 +1666,14 @@
 </div>
 
 
-<!-- 举报窗口 -->
+<!-- =========================
+     REPORT MODAL
+========================= -->
 
-<div class="modal-backdrop" id="reportModal">
+<div
+  class="modal-backdrop"
+  id="reportModal"
+>
 
   <div class="modal">
 
@@ -1016,11 +1686,13 @@
       <button
         class="close"
         id="closeReport"
+        type="button"
       >
         ×
       </button>
 
     </div>
+
 
     <div class="modal-body">
 
@@ -1030,6 +1702,7 @@
           type="hidden"
           id="reportPostId"
         >
+
 
         <div class="field">
 
@@ -1063,6 +1736,7 @@
 
         </div>
 
+
         <button
           class="submit"
           type="submit"
@@ -1084,33 +1758,34 @@
 
 <script type="module">
 
-  /*
-   * ============================================================
-   * CAT TIMES V2
-   * ============================================================
-   */
+  /* =========================================================
+     SUPABASE
+  ========================================================= */
+
+  import {
+    createClient
+  } from
+    "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
 
   const SUPABASE_URL =
     "https://bwbbnljshggcwklktfum.supabase.co";
+
 
   const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_34wdfJsFMKCpx846e7jtCA_sfNQJQs1";
 
 
-  import {
-    createClient
-  } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+  const supabase =
+    createClient(
+      SUPABASE_URL,
+      SUPABASE_PUBLISHABLE_KEY
+    );
 
 
-  const supabase = createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-  );
-
-
-  /*
-   * STATE
-   */
+  /* =========================================================
+     STATE
+  ========================================================= */
 
   let currentUser = null;
 
@@ -1122,15 +1797,15 @@
 
   let currentSearch = "";
 
-  let openComments = new Set();
+  let openComments =
+    new Set();
+
+  let lastPostTime = 0;
 
 
-  /*
-   * CAT IDENTITY
-   *
-   * 同一个匿名用户使用相同的 author_id，
-   * 因此会得到稳定的猫猫身份。
-   */
+  /* =========================================================
+     CAT IDENTITY
+  ========================================================= */
 
   const CAT_EMOJIS = [
     "🐱",
@@ -1138,16 +1813,26 @@
     "🐈‍⬛",
     "😺",
     "😸",
+    "😹",
+    "😻",
     "😼",
     "😽",
-    "🙀"
+    "🙀",
+    "😿",
+    "😾",
+    "🐾"
   ];
 
 
-  function catIdentity(authorId) {
+  function catIdentity(
+    authorId
+  ) {
 
     const source =
-      String(authorId || "anonymous");
+      String(
+        authorId ||
+        "anonymous"
+      );
 
     let hash = 0;
 
@@ -1165,66 +1850,148 @@
 
     }
 
-    hash = Math.abs(hash);
+    hash =
+      Math.abs(hash);
+
 
     return {
 
       emoji:
         CAT_EMOJIS[
-          hash % CAT_EMOJIS.length
+          hash %
+          CAT_EMOJIS.length
         ],
 
       name:
-        `猫猫-${hash
+        "猫猫-" +
+        hash
           .toString(16)
           .slice(-4)
-          .toUpperCase()}`
+          .toUpperCase()
 
     };
 
   }
 
 
-  /*
-   * DOM
-   */
+  /* =========================================================
+     ESCAPE HTML
+  ========================================================= */
+
+  function escapeHtml(
+    value
+  ) {
+
+    return String(
+      value ?? ""
+    )
+      .replace(
+        /&/g,
+        "&amp;"
+      )
+      .replace(
+        /</g,
+        "&lt;"
+      )
+      .replace(
+        />/g,
+        "&gt;"
+      )
+      .replace(
+        /"/g,
+        "&quot;"
+      )
+      .replace(
+        /'/g,
+        "&#039;"
+      );
+
+  }
+
+
+  /* =========================================================
+     DOM
+  ========================================================= */
 
   const postsEl =
-    document.getElementById("posts");
+    document.getElementById(
+      "posts"
+    );
+
+
+  const hotListEl =
+    document.getElementById(
+      "hotList"
+    );
+
 
   const postCountEl =
-    document.getElementById("postCount");
+    document.getElementById(
+      "postCount"
+    );
+
 
   const searchEl =
-    document.getElementById("search");
+    document.getElementById(
+      "search"
+    );
 
-  const categoryFilterEl =
-    document.getElementById("categoryFilter");
 
   const postModal =
-    document.getElementById("postModal");
+    document.getElementById(
+      "postModal"
+    );
+
 
   const reportModal =
-    document.getElementById("reportModal");
+    document.getElementById(
+      "reportModal"
+    );
+
+
+  const authModal =
+    document.getElementById(
+      "authModal"
+    );
+
 
   const postForm =
-    document.getElementById("postForm");
+    document.getElementById(
+      "postForm"
+    );
+
 
   const reportForm =
-    document.getElementById("reportForm");
+    document.getElementById(
+      "reportForm"
+    );
+
 
   const contentEl =
-    document.getElementById("postContent");
+    document.getElementById(
+      "postContent"
+    );
+
 
   const charCountEl =
-    document.getElementById("charCount");
+    document.getElementById(
+      "charCount"
+    );
 
 
-  /*
-   * DATE
-   */
+  const authBtn =
+    document.getElementById(
+      "authBtn"
+    );
 
-  document.getElementById("today").textContent =
+
+  /* =========================================================
+     DATE
+  ========================================================= */
+
+  document.getElementById(
+    "today"
+  ).textContent =
     new Date().toLocaleDateString(
       "zh-CN",
       {
@@ -1235,38 +2002,168 @@
     );
 
 
-  /*
-   * TOAST
-   */
+  /* =========================================================
+     RANDOM CAT BACKGROUND
+  ========================================================= */
 
-  let toastTimer;
+  function createCatBackground() {
+
+    const box =
+      document.getElementById(
+        "catBackground"
+      );
+
+    const cats = [
+      "🐱",
+      "🐈",
+      "🐈‍⬛",
+      "😺",
+      "😸",
+      "😹",
+      "😻",
+      "😼",
+      "😽",
+      "🙀",
+      "😿",
+      "😾"
+    ];
 
 
-  function toast(message) {
+    for (
+      let i = 0;
+      i < 42;
+      i++
+    ) {
 
-    const el =
-      document.getElementById("toast");
+      const cat =
+        document.createElement(
+          "div"
+        );
 
-    el.textContent =
-      message;
+      cat.className =
+        "bg-cat";
 
-    el.classList.add("show");
+      cat.textContent =
+        cats[
+          Math.floor(
+            Math.random() *
+            cats.length
+          )
+        ];
 
-    clearTimeout(toastTimer);
+      cat.style.left =
+        Math.random() * 100 +
+        "%";
 
-    toastTimer =
-      setTimeout(() => {
+      cat.style.top =
+        Math.random() * 100 +
+        "%";
 
-        el.classList.remove("show");
+      cat.style.fontSize =
+        15 +
+        Math.random() * 45 +
+        "px";
 
-      }, 2600);
+      cat.style.transform =
+        `rotate(${
+          -30 +
+          Math.random() * 60
+        }deg)`;
+
+      box.appendChild(
+        cat
+      );
+
+    }
 
   }
 
 
-  /*
-   * ANONYMOUS LOGIN
-   */
+  createCatBackground();
+
+
+  /* =========================================================
+     TOAST
+  ========================================================= */
+
+  let toastTimer;
+
+
+  function toast(
+    message
+  ) {
+
+    const el =
+      document.getElementById(
+        "toast"
+      );
+
+    el.textContent =
+      message;
+
+    el.classList.add(
+      "show"
+    );
+
+    clearTimeout(
+      toastTimer
+    );
+
+    toastTimer =
+      setTimeout(
+        () => {
+
+          el.classList.remove(
+            "show"
+          );
+
+        },
+        2800
+      );
+
+  }
+
+
+  /* =========================================================
+     MODAL HELPERS
+  ========================================================= */
+
+  function openModal(
+    modal
+  ) {
+
+    modal.classList.add(
+      "open"
+    );
+
+  }
+
+
+  function closeModal(
+    modal
+  ) {
+
+    modal.classList.remove(
+      "open"
+    );
+
+  }
+
+
+  /* =========================================================
+     AUTH
+  ========================================================= */
+
+  function isAnonymousUser(
+    user
+  ) {
+
+    return Boolean(
+      user?.is_anonymous
+    );
+
+  }
+
 
   async function ensureAuth() {
 
@@ -1276,7 +2173,9 @@
       await supabase.auth.getSession();
 
 
-    if (sessionData.session) {
+    if (
+      sessionData.session
+    ) {
 
       currentUser =
         sessionData.session.user;
@@ -1290,15 +2189,18 @@
       data,
       error
     } =
-      await supabase.auth.signInAnonymously();
+      await supabase.auth
+        .signInAnonymously();
 
 
     if (error) {
 
-      console.error(error);
+      console.error(
+        error
+      );
 
       toast(
-        "匿名登录失败：请先在 Supabase 开启 Anonymous Sign-Ins"
+        "匿名登录失败，请检查 Supabase Anonymous Sign-Ins"
       );
 
       throw error;
@@ -1314,18 +2216,219 @@
   }
 
 
-  /*
-   * LOAD POSTS
-   */
+  async function refreshAccountStats() {
+
+    if (
+      !currentUser ||
+      isAnonymousUser(
+        currentUser
+      )
+    ) {
+
+      return;
+
+    }
+
+
+    const postsResult =
+      await supabase
+        .from("posts")
+        .select(
+          "id",
+          {
+            count: "exact",
+            head: true
+          }
+        )
+        .eq(
+          "author_id",
+          currentUser.id
+        )
+        .eq(
+          "status",
+          "published"
+        );
+
+
+    const commentsResult =
+      await supabase
+        .from("comments")
+        .select(
+          "id",
+          {
+            count: "exact",
+            head: true
+          }
+        )
+        .eq(
+          "author_id",
+          currentUser.id
+        )
+        .eq(
+          "status",
+          "published"
+        );
+
+
+    document.getElementById(
+      "accountPostCount"
+    ).textContent =
+      postsResult.error
+        ? "—"
+        : String(
+            postsResult.count || 0
+          );
+
+
+    document.getElementById(
+      "accountCommentCount"
+    ).textContent =
+      commentsResult.error
+        ? "—"
+        : String(
+            commentsResult.count || 0
+          );
+
+  }
+
+
+  async function refreshAuthUI() {
+
+    if (!currentUser) {
+
+      authBtn.textContent =
+        "🐱 账号";
+
+      document.getElementById(
+        "authSignedOut"
+      ).style.display = "";
+
+      document.getElementById(
+        "authSignedIn"
+      ).style.display = "none";
+
+      return;
+
+    }
+
+
+    const cat =
+      catIdentity(
+        currentUser.id
+      );
+
+
+    if (
+      isAnonymousUser(
+        currentUser
+      )
+    ) {
+
+      authBtn.textContent =
+        cat.emoji +
+        " 注册 / 登录";
+
+
+      document.getElementById(
+        "authSignedOut"
+      ).style.display = "";
+
+
+      document.getElementById(
+        "authSignedIn"
+      ).style.display = "none";
+
+
+      document.getElementById(
+        "loginTab"
+      ).classList.remove(
+        "active"
+      );
+
+
+      document.getElementById(
+        "registerTab"
+      ).classList.add(
+        "active"
+      );
+
+
+      document.getElementById(
+        "loginForm"
+      ).style.display =
+        "none";
+
+
+      document.getElementById(
+        "registerForm"
+      ).style.display =
+        "";
+
+
+      return;
+
+    }
+
+
+    authBtn.textContent =
+      cat.emoji +
+      " 我的账号";
+
+
+    document.getElementById(
+      "authSignedOut"
+    ).style.display =
+      "none";
+
+
+    document.getElementById(
+      "authSignedIn"
+    ).style.display =
+      "";
+
+
+    document.getElementById(
+      "accountCat"
+    ).textContent =
+      cat.emoji;
+
+
+    document.getElementById(
+      "accountName"
+    ).textContent =
+      currentUser
+        .user_metadata
+        ?.nickname ||
+      cat.name;
+
+
+    document.getElementById(
+      "accountEmail"
+    ).textContent =
+      currentUser.email ||
+      "邮箱已绑定";
+
+
+    document.getElementById(
+      "accountNote"
+    ).textContent =
+      "这是你的正式 CAT TIMES 账号。公开发帖仍然使用猫猫身份，不会公开你的邮箱。";
+
+
+    await refreshAccountStats();
+
+  }
+
+
+  /* =========================================================
+     LOAD POSTS
+  ========================================================= */
 
   async function loadPosts() {
 
     postsEl.innerHTML = `
       <div class="state">
-        <div class="cat">
-          🐱
-        </div>
-
+        <div class="cat">🐱</div>
         <strong>
           猫猫正在翻阅今天的校园报纸……
         </strong>
@@ -1354,7 +2457,8 @@
 
 
     if (
-      currentCategory !== "all"
+      currentCategory !==
+      "all"
     ) {
 
       query =
@@ -1366,64 +2470,41 @@
     }
 
 
-    if (
-      currentSort === "hot"
-    ) {
-
-      query =
-        query
-          .order(
-            "like_count",
-            {
-              ascending: false
-            }
-          )
-          .order(
-            "created_at",
-            {
-              ascending: false
-            }
-          );
-
-    } else {
-
-      query =
-        query.order(
-          "created_at",
-          {
-            ascending: false
-          }
-        );
-
-    }
+    query =
+      query.order(
+        currentSort === "hot"
+          ? "like_count"
+          : "created_at",
+        {
+          ascending: false
+        }
+      );
 
 
     const {
       data,
       error
     } =
-      await query.limit(100);
+      await query;
 
 
     if (error) {
 
-      console.error(error);
+      console.error(
+        error
+      );
 
       postsEl.innerHTML = `
         <div class="state">
-
-          <div class="cat">
-            🙀
-          </div>
-
+          <div class="cat">🙀</div>
           <strong>
-            数据库连接失败
+            读取校园报纸失败
           </strong>
-
           <p>
-            ${escapeHTML(error.message)}
+            ${escapeHtml(
+              error.message
+            )}
           </p>
-
         </div>
       `;
 
@@ -1443,132 +2524,11 @@
   }
 
 
-  /*
-   * HOT BOARD
-   */
+  /* =========================================================
+     FILTER POSTS
+  ========================================================= */
 
-  function renderHotBoard() {
-
-    const el =
-      document.getElementById("hotList");
-
-
-    if (!el) {
-      return;
-    }
-
-
-    const top =
-      [...posts]
-        .sort(
-          (a, b) => {
-
-            const likes =
-              Number(b.like_count || 0) -
-              Number(a.like_count || 0);
-
-            if (likes !== 0) {
-              return likes;
-            }
-
-            return (
-              new Date(b.created_at) -
-              new Date(a.created_at)
-            );
-
-          }
-        )
-        .slice(0, 5);
-
-
-    if (!top.length) {
-
-      el.innerHTML = `
-        <div style="color:#777;font-size:13px">
-          暂无热门帖子。
-        </div>
-      `;
-
-      return;
-
-    }
-
-
-    el.innerHTML =
-      top.map(
-        (post, index) => {
-
-          return `
-            <button
-              class="hot-item"
-              data-hot-id="${post.id}"
-            >
-
-              <span class="hot-rank">
-                0${index + 1}
-              </span>
-
-              <span class="hot-title">
-                ${escapeHTML(post.title)}
-              </span>
-
-              <span class="hot-likes">
-                ♡ ${Number(post.like_count || 0)}
-              </span>
-
-            </button>
-          `;
-
-        }
-      ).join("");
-
-
-    el
-      .querySelectorAll("[data-hot-id]")
-      .forEach(button => {
-
-        button.addEventListener(
-          "click",
-          () => {
-
-            const target =
-              document.getElementById(
-                `post-${button.dataset.hotId}`
-              );
-
-
-            if (target) {
-
-              target.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-              });
-
-              target.style.outline =
-                "4px solid #111";
-
-              setTimeout(() => {
-
-                target.style.outline =
-                  "";
-
-              }, 1600);
-
-            }
-
-          }
-        );
-
-      });
-
-  }
-
-
-  /*
-   * RENDER POSTS
-   */
-
-  function renderPosts() {
+  function getFilteredPosts() {
 
     const keyword =
       currentSearch
@@ -1576,60 +2536,90 @@
         .toLowerCase();
 
 
-    let filtered =
-      posts.filter(post => {
+    if (!keyword) {
 
-        if (!keyword) {
-          return true;
-        }
+      return posts;
+
+    }
 
 
-        return (
+    return posts.filter(
+      post =>
+        String(
+          post.title || ""
+        )
+          .toLowerCase()
+          .includes(
+            keyword
+          ) ||
 
-          (post.title || "")
-            .toLowerCase()
-            .includes(keyword)
+        String(
+          post.content || ""
+        )
+          .toLowerCase()
+          .includes(
+            keyword
+          ) ||
 
-          ||
+        String(
+          post.nickname || ""
+        )
+          .toLowerCase()
+          .includes(
+            keyword
+          )
+    );
 
-          (post.content || "")
-            .toLowerCase()
-            .includes(keyword)
+  }
 
+
+  /* =========================================================
+     HOT BOARD
+  ========================================================= */
+
+  function renderHotBoard() {
+
+    const hot =
+      [...posts]
+        .sort(
+          (a, b) => {
+
+            const likes =
+              Number(
+                b.like_count || 0
+              ) -
+              Number(
+                a.like_count || 0
+              );
+
+            if (
+              likes !== 0
+            ) {
+
+              return likes;
+
+            }
+
+            return new Date(
+              b.created_at
+            ) -
+            new Date(
+              a.created_at
+            );
+
+          }
+        )
+        .slice(
+          0,
+          5
         );
 
-      });
 
+    if (!hot.length) {
 
-    postCountEl.textContent =
-      `${filtered.length} 篇`;
-
-
-    document.getElementById(
-      "feedTitle"
-    ).textContent =
-      currentSort === "hot"
-        ? "热门吐槽"
-        : "最新吐槽";
-
-
-    if (!filtered.length) {
-
-      postsEl.innerHTML = `
+      hotListEl.innerHTML = `
         <div class="state">
-
-          <div class="cat">
-            🐈
-          </div>
-
-          <strong>
-            这里暂时没有猫猫找到的内容。
-          </strong>
-
-          <p>
-            成为第一个发帖的人吧。
-          </p>
-
+          还没有热门帖子。
         </div>
       `;
 
@@ -1638,476 +2628,466 @@
     }
 
 
-    postsEl.innerHTML = "";
+    hotListEl.innerHTML =
+      hot.map(
+        (post, index) => {
+
+          return `
+            <div
+              class="hot-item"
+              data-hot-id="${post.id}"
+            >
+
+              <div class="hot-rank">
+                ${index + 1}
+              </div>
+
+              <div class="hot-title">
+                ${escapeHtml(
+                  post.title
+                )}
+              </div>
+
+              <div class="hot-like">
+                ♥ ${Number(
+                  post.like_count || 0
+                )}
+              </div>
+
+            </div>
+          `;
+
+        }
+      ).join("");
 
 
-    filtered.forEach(post => {
+    hotListEl
+      .querySelectorAll(
+        ".hot-item"
+      )
+      .forEach(
+        item => {
 
-      postsEl.appendChild(
-        createPostElement(post)
+          item.addEventListener(
+            "click",
+            () => {
+
+              const id =
+                item.dataset.hotId;
+
+              const target =
+                document.getElementById(
+                  "post-" + id
+                );
+
+
+              if (target) {
+
+                target.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start"
+                });
+
+                target.style.outline =
+                  "4px solid #000";
+
+                setTimeout(
+                  () => {
+                    target.style.outline =
+                      "";
+                  },
+                  1200
+                );
+
+              }
+
+            }
+          );
+
+        }
       );
-
-    });
 
   }
 
 
-  /*
-   * CREATE POST
-   */
+  /* =========================================================
+     RENDER POSTS
+  ========================================================= */
 
-  function createPostElement(post) {
+  function renderPosts() {
 
-    const article =
-      document.createElement("article");
-
-
-    article.className =
-      "post";
+    const filtered =
+      getFilteredPosts();
 
 
-    article.id =
-      `post-${post.id}`;
+    postCountEl.textContent =
+      filtered.length +
+      " 篇";
 
 
-    const date =
+    if (!filtered.length) {
+
+      postsEl.innerHTML = `
+        <div class="state">
+          <div class="cat">🐈</div>
+          <strong>
+            这里暂时没有找到帖子。
+          </strong>
+          <p>
+            换个关键词或者换个分类试试。
+          </p>
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    postsEl.innerHTML =
+      filtered
+        .map(
+          post =>
+            renderPost(
+              post
+            )
+        )
+        .join("");
+
+
+    bindPostEvents();
+
+  }
+
+
+  function renderPost(
+    post
+  ) {
+
+    const identity =
+      catIdentity(
+        post.author_id
+      );
+
+
+    const nickname =
+      post.nickname?.trim();
+
+
+    const authorName =
+      nickname ||
+      identity.name;
+
+
+    const time =
       new Date(
         post.created_at
       ).toLocaleString(
         "zh-CN",
         {
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
+          month: "numeric",
+          day: "numeric",
           hour: "2-digit",
           minute: "2-digit"
         }
       );
 
 
-    const nickname =
-      post.nickname?.trim() ||
-      "匿名猫猫";
-
-
-    const cat =
-      catIdentity(
-        post.author_id
+    const isOpen =
+      openComments.has(
+        String(post.id)
       );
 
 
-    article.innerHTML = `
+    return `
 
-      <div class="post-meta">
+      <article
+        class="post"
+        id="post-${post.id}"
+      >
 
-        <span class="category">
-          ${escapeHTML(
-            post.category || "其他"
-          )}
-        </span>
+        <div class="post-header">
 
+          <div class="post-author">
 
-        <span class="cat-id">
+            <div class="avatar">
+              ${identity.emoji}
+            </div>
 
-          <span class="cat-avatar">
-            ${cat.emoji}
-          </span>
+            <div>
 
-          ${escapeHTML(nickname)}
+              <div class="author-name">
+                ${escapeHtml(
+                  authorName
+                )}
+              </div>
 
-        </span>
+              <div class="author-sub">
+                ${escapeHtml(
+                  identity.name
+                )}
+                · ${time}
+              </div>
 
+            </div>
 
-        <span class="cat-code">
-          ${cat.name}
-        </span>
-
-
-        <span>
-          ·
-        </span>
-
-
-        <span>
-          ${escapeHTML(date)}
-        </span>
-
-      </div>
+          </div>
 
 
-      <h3>
-        ${escapeHTML(post.title)}
-      </h3>
-
-
-      <div class="post-content">
-        ${escapeHTML(post.content)}
-      </div>
-
-
-      <div class="post-footer">
-
-        <button
-          class="action like-btn"
-        >
-          ♡ 赞
-
-          <span class="like-number">
-            ${Number(post.like_count || 0)}
-          </span>
-        </button>
-
-
-        <button
-          class="action comment-btn"
-        >
-          💬 评论
-        </button>
-
-
-        <button
-          class="action report-btn"
-        >
-          ⚑ 举报
-        </button>
-
-      </div>
-
-
-      <div class="comments">
-
-        <div class="comment-list">
-
-          <div
-            style="color:#777;font-size:13px"
-          >
-            加载评论中……
+          <div class="category">
+            ${escapeHtml(
+              post.category
+            )}
           </div>
 
         </div>
 
 
-        <form class="comment-form">
+        <div class="post-body">
 
-          <input
-            maxlength="30"
-            placeholder="昵称"
+          <h3 class="post-title">
+            ${escapeHtml(
+              post.title
+            )}
+          </h3>
+
+          <p class="post-content">
+            ${escapeHtml(
+              post.content
+            )}
+          </p>
+
+          <div class="post-meta">
+            匿名发布 · CAT TIMES
+          </div>
+
+        </div>
+
+
+        <div class="post-actions">
+
+          <button
+            class="action like-btn"
+            data-like-id="${post.id}"
+            type="button"
           >
-
-
-          <textarea
-            maxlength="1000"
-            placeholder="写下你的评论……"
-            required
-          ></textarea>
+            ♥ ${Number(
+              post.like_count || 0
+            )}
+          </button>
 
 
           <button
-            class="action"
-            type="submit"
+            class="action comment-toggle"
+            data-comment-id="${post.id}"
+            type="button"
           >
-            发送
+            💬 评论
           </button>
 
-        </form>
 
-      </div>
+          <button
+            class="action report-btn"
+            data-report-id="${post.id}"
+            type="button"
+          >
+            🚩 举报
+          </button>
+
+        </div>
+
+
+        <div
+          class="comments"
+          data-comments-for="${post.id}"
+          style="display:${isOpen ? "block" : "none"}"
+        >
+
+          <div class="comments-head">
+            评论区
+          </div>
+
+          <div
+            class="comment-list"
+            id="comments-${post.id}"
+          >
+            ${
+              isOpen
+                ? `
+                  <div class="state">
+                    🐱 正在加载评论……
+                  </div>
+                `
+                : ""
+            }
+          </div>
+
+
+          <form
+            class="comment-form"
+            data-comment-form="${post.id}"
+          >
+
+            <textarea
+              maxlength="1000"
+              placeholder="说点什么……"
+              required
+            ></textarea>
+
+            <button
+              class="comment-submit"
+              type="submit"
+            >
+              发表评论
+            </button>
+
+          </form>
+
+        </div>
+
+      </article>
 
     `;
-
-
-    const likeBtn =
-      article.querySelector(
-        ".like-btn"
-      );
-
-
-    const commentBtn =
-      article.querySelector(
-        ".comment-btn"
-      );
-
-
-    const reportBtn =
-      article.querySelector(
-        ".report-btn"
-      );
-
-
-    const commentsEl =
-      article.querySelector(
-        ".comments"
-      );
-
-
-    const commentList =
-      article.querySelector(
-        ".comment-list"
-      );
-
-
-    const commentForm =
-      article.querySelector(
-        ".comment-form"
-      );
-
-
-    /*
-     * LIKE
-     */
-
-    likeBtn.addEventListener(
-      "click",
-      async () => {
-
-        await toggleLike(
-          post,
-          likeBtn
-        );
-
-      }
-    );
-
-
-    /*
-     * COMMENTS
-     */
-
-    commentBtn.addEventListener(
-      "click",
-      async () => {
-
-        const opening =
-          !commentsEl.classList.contains(
-            "open"
-          );
-
-
-        commentsEl.classList.toggle(
-          "open"
-        );
-
-
-        if (opening) {
-
-          openComments.add(
-            post.id
-          );
-
-
-          await loadComments(
-            post.id,
-            commentList
-          );
-
-        } else {
-
-          openComments.delete(
-            post.id
-          );
-
-        }
-
-      }
-    );
-
-
-    /*
-     * REPORT
-     */
-
-    reportBtn.addEventListener(
-      "click",
-      () => {
-
-        document.getElementById(
-          "reportPostId"
-        ).value =
-          post.id;
-
-
-        reportModal.classList.add(
-          "open"
-        );
-
-      }
-    );
-
-
-    /*
-     * COMMENT SUBMIT
-     */
-
-    commentForm.addEventListener(
-      "submit",
-      async event => {
-
-        event.preventDefault();
-
-
-        const inputs =
-          commentForm.querySelectorAll(
-            "input, textarea"
-          );
-
-
-        const nickname =
-          inputs[0]
-            .value
-            .trim();
-
-
-        const content =
-          inputs[1]
-            .value
-            .trim();
-
-
-        if (!content) {
-
-          toast(
-            "评论不能为空"
-          );
-
-          return;
-
-        }
-
-
-        if (content.length > 1000) {
-
-          toast(
-            "评论不能超过 1000 字"
-          );
-
-          return;
-
-        }
-
-
-        const user =
-          await ensureAuth();
-
-
-        const button =
-          commentForm.querySelector(
-            "button"
-          );
-
-
-        button.disabled = true;
-
-        button.textContent =
-          "发送中……";
-
-
-        const {
-          error
-        } =
-          await supabase
-            .from("comments")
-            .insert({
-
-              author_id:
-                user.id,
-
-              post_id:
-                post.id,
-
-              nickname:
-                nickname ||
-                "匿名猫猫",
-
-              content,
-
-              status:
-                "published"
-
-            });
-
-
-        button.disabled =
-          false;
-
-        button.textContent =
-          "发送";
-
-
-        if (error) {
-
-          console.error(error);
-
-          toast(
-            "评论失败：" +
-            error.message
-          );
-
-          return;
-
-        }
-
-
-        inputs[1].value =
-          "";
-
-
-        toast(
-          "评论已发布"
-        );
-
-
-        await loadComments(
-          post.id,
-          commentList
-        );
-
-      }
-    );
-
-
-    /*
-     * RESTORE COMMENT STATE
-     */
-
-    if (
-      openComments.has(
-        post.id
-      )
-    ) {
-
-      commentsEl.classList.add(
-        "open"
-      );
-
-
-      setTimeout(() => {
-
-        loadComments(
-          post.id,
-          commentList
-        );
-
-      }, 0);
-
-    }
-
-
-    return article;
 
   }
 
 
-  /*
-   * LIKE TOGGLE
-   */
+  /* =========================================================
+     POST EVENTS
+  ========================================================= */
 
-  async function toggleLike(
-    post,
-    button
+  function bindPostEvents() {
+
+    document
+      .querySelectorAll(
+        ".like-btn"
+      )
+      .forEach(
+        button => {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              likePost(
+                Number(
+                  button.dataset.likeId
+                )
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+    document
+      .querySelectorAll(
+        ".comment-toggle"
+      )
+      .forEach(
+        button => {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              toggleComments(
+                Number(
+                  button.dataset.commentId
+                )
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+    document
+      .querySelectorAll(
+        ".report-btn"
+      )
+      .forEach(
+        button => {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              document.getElementById(
+                "reportPostId"
+              ).value =
+                button.dataset.reportId;
+
+              openModal(
+                reportModal
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+    document
+      .querySelectorAll(
+        "[data-comment-form]"
+      )
+      .forEach(
+        form => {
+
+          form.addEventListener(
+            "submit",
+            event => {
+
+              event.preventDefault();
+
+              submitComment(
+                Number(
+                  form.dataset.commentForm
+                ),
+                form
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+    if (
+      openComments.size
+    ) {
+
+      openComments.forEach(
+        id => {
+
+          loadComments(
+            Number(id)
+          );
+
+        }
+      );
+
+    }
+
+  }
+
+
+  /* =========================================================
+     LIKE
+  ========================================================= */
+
+  async function likePost(
+    postId
   ) {
 
-    const user =
-      await ensureAuth();
+    await ensureAuth();
 
 
     const {
@@ -2119,11 +3099,11 @@
         .select("id")
         .eq(
           "post_id",
-          post.id
+          postId
         )
         .eq(
           "visitor_id",
-          user.id
+          currentUser.id
         )
         .eq(
           "type",
@@ -2135,7 +3115,7 @@
     if (findError) {
 
       toast(
-        "无法读取点赞状态"
+        "点赞状态读取失败"
       );
 
       console.error(
@@ -2171,11 +3151,6 @@
 
       }
 
-
-      button.classList.remove(
-        "liked"
-      );
-
     } else {
 
       const {
@@ -2184,96 +3159,122 @@
         await supabase
           .from("reactions")
           .insert({
-
-            post_id:
-              post.id,
-
+            post_id: postId,
             visitor_id:
-              user.id,
-
-            type:
-              "like"
-
+              currentUser.id,
+            type: "like"
           });
 
 
       if (error) {
 
         toast(
-          "点赞失败：" +
-          error.message
+          "点赞失败"
+        );
+
+        console.error(
+          error
         );
 
         return;
 
       }
 
+    }
 
-      button.classList.add(
-        "liked"
+
+    const post =
+      posts.find(
+        item =>
+          item.id === postId
       );
+
+
+    if (post) {
+
+      post.like_count =
+        Math.max(
+          0,
+          Number(
+            post.like_count || 0
+          ) +
+          (
+            existing
+              ? -1
+              : 1
+          )
+        );
 
     }
 
 
-    /*
-     * 重新读取点赞数量
-     */
+    renderPosts();
 
-    const {
-      count,
-      error: countError
-    } =
-      await supabase
-        .from("reactions")
-        .select(
-          "*",
-          {
-            count: "exact",
-            head: true
-          }
-        )
-        .eq(
-          "post_id",
-          post.id
-        )
-        .eq(
-          "type",
-          "like"
-        );
+    renderHotBoard();
+
+  }
 
 
-    if (!countError) {
+  /* =========================================================
+     COMMENTS
+  ========================================================= */
 
-      const nextCount =
-        count || 0;
+  async function toggleComments(
+    postId
+  ) {
 
-
-      button.querySelector(
-        ".like-number"
-      ).textContent =
-        nextCount;
-
-
-      post.like_count =
-        nextCount;
+    const key =
+      String(postId);
 
 
-      renderHotBoard();
+    if (
+      openComments.has(key)
+    ) {
+
+      openComments.delete(key);
+
+    } else {
+
+      openComments.add(key);
+
+    }
+
+
+    renderPosts();
+
+
+    if (
+      openComments.has(key)
+    ) {
+
+      await loadComments(
+        postId
+      );
 
     }
 
   }
 
 
-  /*
-   * LOAD COMMENTS
-   */
-
   async function loadComments(
-    postId,
-    container
+    postId
   ) {
+
+    const list =
+      document.getElementById(
+        "comments-" + postId
+      );
+
+
+    if (!list) return;
+
+
+    list.innerHTML = `
+      <div class="state">
+        🐱 猫猫正在翻评论……
+      </div>
+    `;
+
 
     const {
       data,
@@ -2286,7 +3287,8 @@
           author_id,
           created_at,
           nickname,
-          content
+          content,
+          status
         `)
         .eq(
           "post_id",
@@ -2306,11 +3308,15 @@
 
     if (error) {
 
-      container.innerHTML = `
-        <div style="color:#b00020">
-          评论加载失败
+      list.innerHTML = `
+        <div class="state">
+          评论加载失败。
         </div>
       `;
+
+      console.error(
+        error
+      );
 
       return;
 
@@ -2319,9 +3325,13 @@
 
     if (!data?.length) {
 
-      container.innerHTML = `
-        <div style="color:#777;font-size:13px">
-          还没有评论。
+      list.innerHTML = `
+        <div class="comment">
+          <span
+            style="color:#888;font-size:12px"
+          >
+            还没有评论，成为第一个留言的人吧。
+          </span>
         </div>
       `;
 
@@ -2330,228 +3340,176 @@
     }
 
 
-    container.innerHTML =
-      "";
+    list.innerHTML =
+      data
+        .map(
+          (comment, index) => {
+
+            const identity =
+              catIdentity(
+                comment.author_id
+              );
 
 
-    data.forEach(
-      (comment, index) => {
-
-        const div =
-          document.createElement(
-            "div"
-          );
+            const nickname =
+              comment.nickname?.trim();
 
 
-        div.className =
-          "comment";
+            const author =
+              nickname ||
+              identity.name;
 
 
-        const cat =
-          catIdentity(
-            comment.author_id
-          );
+            const time =
+              new Date(
+                comment.created_at
+              ).toLocaleString(
+                "zh-CN",
+                {
+                  month: "numeric",
+                  day: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit"
+                }
+              );
 
 
-        div.innerHTML = `
+            return `
 
-          <div class="comment-name">
+              <div class="comment">
 
-            <span class="floor">
-              #${index + 1} 楼
-            </span>
+                <div class="comment-top">
 
-            <span class="cat-id">
+                  <div class="avatar">
+                    ${identity.emoji}
+                  </div>
 
-              <span class="cat-avatar">
-                ${cat.emoji}
-              </span>
+                  <span class="floor">
+                    #${index + 1} 楼
+                  </span>
 
-              ${escapeHTML(
-                comment.nickname ||
-                "匿名猫猫"
-              )}
+                  <span class="comment-author">
+                    ${escapeHtml(
+                      author
+                    )}
+                  </span>
 
-            </span>
+                  <span class="comment-time">
+                    ${time}
+                  </span>
 
-            <span class="cat-code">
-              ${cat.name}
-            </span>
+                </div>
 
-          </div>
+                <div class="comment-content">
+                  ${escapeHtml(
+                    comment.content
+                  )}
+                </div>
 
+              </div>
 
-          <div class="comment-body">
-            ${escapeHTML(
-              comment.content
-            )}
-          </div>
+            `;
 
-        `;
-
-
-        container.appendChild(
-          div
-        );
-
-      }
-    );
+          }
+        )
+        .join("");
 
   }
 
 
-  /*
-   * ESCAPE HTML
-   */
+  async function submitComment(
+    postId,
+    form
+  ) {
 
-  function escapeHTML(value) {
+    await ensureAuth();
 
-    return String(
-      value ?? ""
-    )
-      .replaceAll(
-        "&",
-        "&amp;"
-      )
-      .replaceAll(
-        "<",
-        "&lt;"
-      )
-      .replaceAll(
-        ">",
-        "&gt;"
-      )
-      .replaceAll(
-        '"',
-        "&quot;"
-      )
-      .replaceAll(
-        "'",
-        "&#039;"
+
+    const textarea =
+      form.querySelector(
+        "textarea"
       );
 
+
+    const content =
+      textarea.value.trim();
+
+
+    if (!content) {
+
+      return;
+
+    }
+
+
+    const post =
+      posts.find(
+        item =>
+          item.id === postId
+      );
+
+
+    const nickname =
+      post?.nickname ||
+      null;
+
+
+    const {
+      error
+    } =
+      await supabase
+        .from("comments")
+        .insert({
+
+          author_id:
+            currentUser.id,
+
+          post_id:
+            postId,
+
+          nickname,
+
+          content,
+
+          status:
+            "published"
+
+        });
+
+
+    if (error) {
+
+      console.error(
+        error
+      );
+
+      toast(
+        "评论发布失败：" +
+        error.message
+      );
+
+      return;
+
+    }
+
+
+    textarea.value = "";
+
+    toast(
+      "评论已发布 🐱"
+    );
+
+
+    await loadComments(
+      postId
+    );
+
   }
 
 
-  /*
-   * MODAL
-   */
-
-  document
-    .getElementById(
-      "newPostBtn"
-    )
-    .addEventListener(
-      "click",
-      () => {
-
-        postModal.classList.add(
-          "open"
-        );
-
-
-        setTimeout(() => {
-
-          document
-            .getElementById(
-              "postTitle"
-            )
-            .focus();
-
-        }, 100);
-
-      }
-    );
-
-
-  document
-    .getElementById(
-      "closeModal"
-    )
-    .addEventListener(
-      "click",
-      () => {
-
-        postModal.classList.remove(
-          "open"
-        );
-
-      }
-    );
-
-
-  document
-    .getElementById(
-      "closeReport"
-    )
-    .addEventListener(
-      "click",
-      () => {
-
-        reportModal.classList.remove(
-          "open"
-        );
-
-      }
-    );
-
-
-  postModal.addEventListener(
-    "click",
-    event => {
-
-      if (
-        event.target ===
-        postModal
-      ) {
-
-        postModal.classList.remove(
-          "open"
-        );
-
-      }
-
-    }
-  );
-
-
-  reportModal.addEventListener(
-    "click",
-    event => {
-
-      if (
-        event.target ===
-        reportModal
-      ) {
-
-        reportModal.classList.remove(
-          "open"
-        );
-
-      }
-
-    }
-  );
-
-
-  /*
-   * CHARACTER COUNTER
-   */
-
-  contentEl.addEventListener(
-    "input",
-    () => {
-
-      charCountEl.textContent =
-        `${contentEl.value.length} / 5000`;
-
-    }
-  );
-
-
-  /*
-   * POST SUBMIT
-   */
+  /* =========================================================
+     POST CREATION
+  ========================================================= */
 
   postForm.addEventListener(
     "submit",
@@ -2560,105 +3518,18 @@
       event.preventDefault();
 
 
-      const nickname =
-        document
-          .getElementById(
-            "nickname"
-          )
-          .value
-          .trim();
-
-
-      const category =
-        document
-          .getElementById(
-            "postCategory"
-          )
-          .value;
-
-
-      const title =
-        document
-          .getElementById(
-            "postTitle"
-          )
-          .value
-          .trim();
-
-
-      const content =
-        document
-          .getElementById(
-            "postContent"
-          )
-          .value
-          .trim();
-
-
-      if (!title) {
-
-        toast(
-          "请填写标题"
-        );
-
-        return;
-
-      }
-
-
-      if (!content) {
-
-        toast(
-          "请填写内容"
-        );
-
-        return;
-
-      }
-
-
-      if (title.length > 120) {
-
-        toast(
-          "标题不能超过 120 字"
-        );
-
-        return;
-
-      }
-
-
-      if (content.length > 5000) {
-
-        toast(
-          "内容不能超过 5000 字"
-        );
-
-        return;
-
-      }
-
-
-      /*
-       * CLIENT-SIDE ANTI-SPAM
-       */
-
-      const lastPost =
-        Number(
-          localStorage.getItem(
-            "cat_times_last_post"
-          ) || 0
-        );
+      const now =
+        Date.now();
 
 
       if (
-        Date.now() -
-        lastPost <
+        now -
+        lastPostTime <
         15000
       ) {
 
         toast(
-          "发帖太快了，请稍等 15 秒"
+          "发帖太快啦，请稍等 15 秒。"
         );
 
         return;
@@ -2666,20 +3537,57 @@
       }
 
 
-      const user =
-        await ensureAuth();
+      await ensureAuth();
 
 
-      const button =
+      const nickname =
+        document.getElementById(
+          "nickname"
+        ).value.trim();
+
+
+      const category =
+        document.getElementById(
+          "postCategory"
+        ).value;
+
+
+      const title =
+        document.getElementById(
+          "postTitle"
+        ).value.trim();
+
+
+      const content =
+        document.getElementById(
+          "postContent"
+        ).value.trim();
+
+
+      if (
+        !title ||
+        !content
+      ) {
+
+        toast(
+          "标题和内容不能为空。"
+        );
+
+        return;
+
+      }
+
+
+      const submitButton =
         document.getElementById(
           "submitPost"
         );
 
 
-      button.disabled =
+      submitButton.disabled =
         true;
 
-      button.textContent =
+      submitButton.textContent =
         "发布中……";
 
 
@@ -2691,15 +3599,15 @@
           .insert({
 
             author_id:
-              user.id,
+              currentUser.id,
 
             nickname:
               nickname ||
-              "匿名猫猫",
-
-            title,
+              null,
 
             category,
+
+            title,
 
             content,
 
@@ -2709,16 +3617,18 @@
           });
 
 
-      button.disabled =
+      submitButton.disabled =
         false;
 
-      button.textContent =
+      submitButton.textContent =
         "发布";
 
 
       if (error) {
 
-        console.error(error);
+        console.error(
+          error
+        );
 
         toast(
           "发布失败：" +
@@ -2730,33 +3640,24 @@
       }
 
 
-      localStorage.setItem(
-        "cat_times_last_post",
-        String(
-          Date.now()
-        )
-      );
+      lastPostTime =
+        Date.now();
 
 
       postForm.reset();
-
 
       charCountEl.textContent =
         "0 / 5000";
 
 
-      postModal.classList.remove(
-        "open"
+      closeModal(
+        postModal
       );
 
 
       toast(
-        "发布成功 🐱"
+        "投稿成功 🐱"
       );
-
-
-      currentSort =
-        "latest";
 
 
       await loadPosts();
@@ -2765,9 +3666,9 @@
   );
 
 
-  /*
-   * REPORT
-   */
+  /* =========================================================
+     REPORT
+  ========================================================= */
 
   reportForm.addEventListener(
     "submit",
@@ -2776,24 +3677,21 @@
       event.preventDefault();
 
 
-      const user =
-        await ensureAuth();
+      await ensureAuth();
 
 
       const postId =
-        document
-          .getElementById(
+        Number(
+          document.getElementById(
             "reportPostId"
-          )
-          .value;
+          ).value
+        );
 
 
       const reason =
-        document
-          .getElementById(
-            "reportReason"
-          )
-          .value;
+        document.getElementById(
+          "reportReason"
+        ).value;
 
 
       const {
@@ -2804,10 +3702,10 @@
           .insert({
 
             post_id:
-              Number(postId),
+              postId,
 
             reporter_id:
-              user.id,
+              currentUser.id,
 
             reason
 
@@ -2816,7 +3714,9 @@
 
       if (error) {
 
-        console.error(error);
+        console.error(
+          error
+        );
 
         toast(
           "举报失败：" +
@@ -2828,22 +3728,25 @@
       }
 
 
-      reportModal.classList.remove(
-        "open"
+      closeModal(
+        reportModal
       );
 
 
+      reportForm.reset();
+
+
       toast(
-        "举报已提交，感谢你的反馈。"
+        "举报已提交，谢谢你的反馈。"
       );
 
     }
   );
 
 
-  /*
-   * SEARCH
-   */
+  /* =========================================================
+     SEARCH
+  ========================================================= */
 
   searchEl.addEventListener(
     "input",
@@ -2858,92 +3761,872 @@
   );
 
 
-  /*
-   * CATEGORY
-   */
-
-  categoryFilterEl.addEventListener(
-    "change",
-    event => {
-
-      currentCategory =
-        event.target.value;
-
-      loadPosts();
-
-    }
-  );
-
-
-  /*
-   * NAVIGATION
-   */
+  /* =========================================================
+     SORT / CATEGORY NAV
+  ========================================================= */
 
   document
     .querySelectorAll(
       "nav button"
     )
-    .forEach(button => {
+    .forEach(
+      button => {
 
-      button.addEventListener(
-        "click",
-        () => {
+        button.addEventListener(
+          "click",
+          async () => {
 
-          document
-            .querySelectorAll(
-              "nav button"
-            )
-            .forEach(btn => {
-
-              btn.classList.remove(
-                "active"
+            document
+              .querySelectorAll(
+                "nav button"
+              )
+              .forEach(
+                btn =>
+                  btn.classList.remove(
+                    "active"
+                  )
               );
 
-            });
+
+            button.classList.add(
+              "active"
+            );
 
 
-          button.classList.add(
-            "active"
-          );
+            if (
+              button.dataset.sort
+            ) {
+
+              currentSort =
+                button.dataset.sort;
+
+            }
 
 
-          if (
-            button.dataset.sort
-          ) {
+            if (
+              button.dataset.category
+            ) {
 
-            currentSort =
-              button.dataset.sort;
+              currentCategory =
+                button.dataset.category;
 
-            loadPosts();
+            }
+
+
+            await loadPosts();
 
           }
+        );
 
+      }
+    );
+
+
+  /* =========================================================
+     MODAL EVENTS
+  ========================================================= */
+
+  document.getElementById(
+    "openPost"
+  ).addEventListener(
+    "click",
+    async () => {
+
+      await ensureAuth();
+
+      openModal(
+        postModal
+      );
+
+    }
+  );
+
+
+  document.getElementById(
+    "closePost"
+  ).addEventListener(
+    "click",
+    () => {
+
+      closeModal(
+        postModal
+      );
+
+    }
+  );
+
+
+  document.getElementById(
+    "closeReport"
+  ).addEventListener(
+    "click",
+    () => {
+
+      closeModal(
+        reportModal
+      );
+
+    }
+  );
+
+
+  authBtn.addEventListener(
+    "click",
+    async () => {
+
+      await refreshAuthUI();
+
+      openModal(
+        authModal
+      );
+
+    }
+  );
+
+
+  document.getElementById(
+    "closeAuth"
+  ).addEventListener(
+    "click",
+    () => {
+
+      closeModal(
+        authModal
+      );
+
+    }
+  );
+
+
+  [
+    postModal,
+    reportModal,
+    authModal
+  ].forEach(
+    modal => {
+
+      modal.addEventListener(
+        "click",
+        event => {
 
           if (
-            button.dataset.category
+            event.target ===
+            modal
           ) {
 
-            currentCategory =
-              button.dataset.category;
-
-
-            categoryFilterEl.value =
-              currentCategory;
-
-
-            loadPosts();
+            closeModal(
+              modal
+            );
 
           }
 
         }
       );
 
-    });
+    }
+  );
 
 
-  /*
-   * START
-   */
+  /* =========================================================
+     CHARACTER COUNT
+  ========================================================= */
+
+  contentEl.addEventListener(
+    "input",
+    () => {
+
+      charCountEl.textContent =
+        contentEl.value.length +
+        " / 5000";
+
+    }
+  );
+
+
+  /* =========================================================
+     AUTH TABS
+  ========================================================= */
+
+  document.getElementById(
+    "loginTab"
+  ).addEventListener(
+    "click",
+    () => {
+
+      document.getElementById(
+        "loginTab"
+      ).classList.add(
+        "active"
+      );
+
+      document.getElementById(
+        "registerTab"
+      ).classList.remove(
+        "active"
+      );
+
+
+      document.getElementById(
+        "loginForm"
+      ).style.display =
+        "";
+
+
+      document.getElementById(
+        "registerForm"
+      ).style.display =
+        "none";
+
+
+      document.getElementById(
+        "passwordSetupBox"
+      ).style.display =
+        "none";
+
+    }
+  );
+
+
+  document.getElementById(
+    "registerTab"
+  ).addEventListener(
+    "click",
+    () => {
+
+      document.getElementById(
+        "registerTab"
+      ).classList.add(
+        "active"
+      );
+
+      document.getElementById(
+        "loginTab"
+      ).classList.remove(
+        "active"
+      );
+
+
+      document.getElementById(
+        "loginForm"
+      ).style.display =
+        "none";
+
+
+      document.getElementById(
+        "registerForm"
+      ).style.display =
+        "";
+
+
+      document.getElementById(
+        "passwordSetupBox"
+      ).style.display =
+        "none";
+
+    }
+  );
+
+
+  /* =========================================================
+     LOGIN
+  ========================================================= */
+
+  document.getElementById(
+    "loginForm"
+  ).addEventListener(
+    "submit",
+    async event => {
+
+      event.preventDefault();
+
+
+      const email =
+        document.getElementById(
+          "loginEmail"
+        ).value.trim();
+
+
+      const password =
+        document.getElementById(
+          "loginPassword"
+        ).value;
+
+
+      const errorEl =
+        document.getElementById(
+          "loginError"
+        );
+
+
+      errorEl.textContent =
+        "";
+
+
+      if (
+        currentUser &&
+        isAnonymousUser(
+          currentUser
+        )
+      ) {
+
+        const proceed =
+          confirm(
+            "你当前是匿名猫猫。登录已有账号会切换账号，当前匿名会话中的数据不会自动转移。\n\n如果你想保留当前匿名帖子，请使用“注册”绑定当前账号。\n\n仍然登录吗？"
+          );
+
+
+        if (!proceed) {
+
+          return;
+
+        }
+
+      }
+
+
+      const {
+        error
+      } =
+        await supabase.auth
+          .signInWithPassword({
+
+            email,
+
+            password
+
+          });
+
+
+      if (error) {
+
+        errorEl.textContent =
+          "登录失败：" +
+          error.message;
+
+        return;
+
+      }
+
+
+      currentUser =
+        (
+          await supabase.auth
+            .getUser()
+        ).data.user;
+
+
+      await refreshAuthUI();
+
+
+      closeModal(
+        authModal
+      );
+
+
+      loginForm.reset();
+
+
+      toast(
+        "登录成功 🐱"
+      );
+
+
+      await loadPosts();
+
+    }
+  );
+
+
+  /* =========================================================
+     REGISTER
+  ========================================================= */
+
+  document.getElementById(
+    "registerForm"
+  ).addEventListener(
+    "submit",
+    async event => {
+
+      event.preventDefault();
+
+
+      const email =
+        document.getElementById(
+          "registerEmail"
+        ).value.trim();
+
+
+      const password =
+        document.getElementById(
+          "registerPassword"
+        ).value;
+
+
+      const password2 =
+        document.getElementById(
+          "registerPassword2"
+        ).value;
+
+
+      const errorEl =
+        document.getElementById(
+          "registerError"
+        );
+
+
+      errorEl.textContent =
+        "";
+
+
+      if (
+        password.length <
+        6
+      ) {
+
+        errorEl.textContent =
+          "密码至少需要 6 位。";
+
+        return;
+
+      }
+
+
+      if (
+        password !==
+        password2
+      ) {
+
+        errorEl.textContent =
+          "两次密码不一致。";
+
+        return;
+
+      }
+
+
+      await ensureAuth();
+
+
+      if (
+        !isAnonymousUser(
+          currentUser
+        )
+      ) {
+
+        errorEl.textContent =
+          "你已经是正式账号。";
+
+        return;
+
+      }
+
+
+      /*
+       * 将当前匿名用户绑定到邮箱。
+       *
+       * 注意：
+       * 不创建新的用户，
+       * 因此原来的 author_id 保持不变。
+       */
+
+      const {
+        error
+      } =
+        await supabase.auth
+          .updateUser(
+
+            {
+              email
+            },
+
+            {
+              emailRedirectTo:
+                window.location.href
+            }
+
+          );
+
+
+      if (error) {
+
+        console.error(
+          error
+        );
+
+        errorEl.textContent =
+          "注册失败：" +
+          error.message;
+
+        return;
+
+      }
+
+
+      registerForm.reset();
+
+
+      errorEl.textContent =
+        "验证邮件已经发送。请打开邮箱完成验证，然后回到 CAT TIMES 设置密码。";
+
+
+      toast(
+        "验证邮件已发送 📮"
+      );
+
+    }
+  );
+
+
+  /* =========================================================
+     PASSWORD SETUP
+  ========================================================= */
+
+  document.getElementById(
+    "passwordForm"
+  ).addEventListener(
+    "submit",
+    async event => {
+
+      event.preventDefault();
+
+
+      const password =
+        document.getElementById(
+          "newPassword"
+        ).value;
+
+
+      const password2 =
+        document.getElementById(
+          "newPassword2"
+        ).value;
+
+
+      const errorEl =
+        document.getElementById(
+          "passwordError"
+        );
+
+
+      errorEl.textContent =
+        "";
+
+
+      if (
+        password.length <
+        6
+      ) {
+
+        errorEl.textContent =
+          "密码至少需要 6 位。";
+
+        return;
+
+      }
+
+
+      if (
+        password !==
+        password2
+      ) {
+
+        errorEl.textContent =
+          "两次密码不一致。";
+
+        return;
+
+      }
+
+
+      const {
+        error
+      } =
+        await supabase.auth
+          .updateUser({
+
+            password
+
+          });
+
+
+      if (error) {
+
+        errorEl.textContent =
+          "设置密码失败：" +
+          error.message;
+
+        return;
+
+      }
+
+
+      passwordForm.reset();
+
+
+      document.getElementById(
+        "passwordSetupBox"
+      ).style.display =
+        "none";
+
+
+      toast(
+        "密码设置成功 🔐"
+      );
+
+
+      await refreshAuthUI();
+
+    }
+  );
+
+
+  /* =========================================================
+     CHANGE PASSWORD
+  ========================================================= */
+
+  document.getElementById(
+    "openPasswordBtn"
+  ).addEventListener(
+    "click",
+    () => {
+
+      const box =
+        document.getElementById(
+          "signedInPasswordBox"
+        );
+
+
+      box.style.display =
+        box.style.display === "none"
+          ? ""
+          : "none";
+
+    }
+  );
+
+
+  document.getElementById(
+    "signedInPasswordForm"
+  ).addEventListener(
+    "submit",
+    async event => {
+
+      event.preventDefault();
+
+
+      const password =
+        document.getElementById(
+          "signedInNewPassword"
+        ).value;
+
+
+      const password2 =
+        document.getElementById(
+          "signedInNewPassword2"
+        ).value;
+
+
+      const errorEl =
+        document.getElementById(
+          "signedInPasswordError"
+        );
+
+
+      errorEl.textContent =
+        "";
+
+
+      if (
+        password.length <
+        6
+      ) {
+
+        errorEl.textContent =
+          "密码至少需要 6 位。";
+
+        return;
+
+      }
+
+
+      if (
+        password !==
+        password2
+      ) {
+
+        errorEl.textContent =
+          "两次密码不一致。";
+
+        return;
+
+      }
+
+
+      const {
+        error
+      } =
+        await supabase.auth
+          .updateUser({
+
+            password
+
+          });
+
+
+      if (error) {
+
+        errorEl.textContent =
+          "修改密码失败：" +
+          error.message;
+
+        return;
+
+      }
+
+
+      document.getElementById(
+        "signedInPasswordForm"
+      ).reset();
+
+
+      document.getElementById(
+        "signedInPasswordBox"
+      ).style.display =
+        "none";
+
+
+      toast(
+        "密码修改成功 🔐"
+      );
+
+    }
+  );
+
+
+  /* =========================================================
+     LOGOUT
+  ========================================================= */
+
+  document.getElementById(
+    "logoutBtn"
+  ).addEventListener(
+    "click",
+    async () => {
+
+      const {
+        error
+      } =
+        await supabase.auth
+          .signOut();
+
+
+      if (error) {
+
+        toast(
+          "退出失败：" +
+          error.message
+        );
+
+        return;
+
+      }
+
+
+      currentUser =
+        null;
+
+
+      closeModal(
+        authModal
+      );
+
+
+      /*
+       * 退出正式账号后，
+       * CAT TIMES 自动继续以匿名身份运行。
+       */
+
+      await ensureAuth();
+
+      await loadPosts();
+
+
+      toast(
+        "已退出正式账号，现在是匿名猫猫 🐱"
+      );
+
+    }
+  );
+
+
+  /* =========================================================
+     AUTH STATE
+  ========================================================= */
+
+  supabase.auth.onAuthStateChange(
+    async (
+      event,
+      session
+    ) => {
+
+      currentUser =
+        session?.user ||
+        null;
+
+
+      if (
+        event ===
+        "PASSWORD_RECOVERY"
+      ) {
+
+        openModal(
+          authModal
+        );
+
+
+        document.getElementById(
+          "authSignedOut"
+        ).style.display =
+          "";
+
+
+        document.getElementById(
+          "authSignedIn"
+        ).style.display =
+          "none";
+
+
+        document.getElementById(
+          "loginForm"
+        ).style.display =
+          "none";
+
+
+        document.getElementById(
+          "registerForm"
+        ).style.display =
+          "none";
+
+
+        document.getElementById(
+          "passwordSetupBox"
+        ).style.display =
+          "";
+
+        return;
+
+      }
+
+
+      await refreshAuthUI();
+
+    }
+  );
+
+
+  /* =========================================================
+     INITIALIZE
+  ========================================================= */
 
   async function init() {
 
@@ -2951,11 +4634,35 @@
 
       await ensureAuth();
 
+      await refreshAuthUI();
+
       await loadPosts();
 
-    } catch (error) {
+    } catch (
+      error
+    ) {
 
-      console.error(error);
+      console.error(
+        error
+      );
+
+      postsEl.innerHTML = `
+        <div class="state">
+
+          <div class="cat">
+            🙀
+          </div>
+
+          <strong>
+            CAT TIMES 初始化失败
+          </strong>
+
+          <p>
+            请检查 Supabase 配置。
+          </p>
+
+        </div>
+      `;
 
     }
 
