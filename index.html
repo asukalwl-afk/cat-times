@@ -993,9 +993,17 @@ body { padding-bottom: calc(74px + env(safe-area-inset-bottom)); }
 }
 
   </style>
+<style>
+/* CAT TIMES App polish */
+#catSplash{position:fixed;inset:0;z-index:99999;background:#fff;display:flex;align-items:center;justify-content:center;transition:opacity .35s ease,visibility .35s ease}#catSplash.hide{opacity:0;visibility:hidden;pointer-events:none}.splash-inner{text-align:center;border:2px solid #111;padding:38px 34px;min-width:260px;box-shadow:8px 8px 0 #111}.splash-cat{font-size:42px;line-height:1;margin-bottom:14px}.splash-title{font-family:Georgia,'Times New Roman',serif;font-weight:900;letter-spacing:.08em;font-size:38px}.splash-rule{height:1px;background:#111;margin:14px 0}.splash-sub{font-size:11px;letter-spacing:.18em}.app-guide{position:fixed;left:50%;bottom:78px;transform:translateX(-50%);z-index:9998;background:#111;color:#fff;width:min(92vw,430px);padding:14px 16px;display:none;gap:12px;align-items:center;box-shadow:0 5px 18px #0003}.app-guide.show{display:flex}.app-guide-copy{flex:1;font-size:13px;line-height:1.5}.app-guide-copy strong{display:block;font-size:15px;margin-bottom:3px}.app-guide button{border:1px solid #fff;background:#fff;color:#111;padding:8px 11px;font-weight:700}.app-guide .guide-close{background:transparent;color:#fff;border:0;font-size:20px;padding:2px 5px}.app-update{position:fixed;right:14px;bottom:78px;z-index:9997;background:#fff;color:#111;border:2px solid #111;padding:10px 12px;display:none;box-shadow:5px 5px 0 #111;font-size:13px}.app-update.show{display:flex;gap:10px;align-items:center}.app-update button{background:#111;color:#fff;border:0;padding:7px 10px;font-weight:700}@media(min-width:769px){.app-guide{bottom:20px}.app-update{bottom:20px}}
+</style>
 </head>
 
 <body>
+<div id="catSplash" aria-hidden="true"><div class="splash-inner"><div class="splash-cat">🐱</div><div class="splash-title">CAT TIMES</div><div class="splash-rule"></div><div class="splash-sub">校园匿名吐槽 · 交流 · 分享</div></div></div>
+<div class="app-guide" id="appGuide"><div class="app-guide-copy"><strong>安装 CAT TIMES</strong><span id="appGuideText">添加到主屏幕，像 App 一样打开。</span></div><button id="appGuideInstall" type="button">安装</button><button class="guide-close" id="appGuideClose" type="button" aria-label="关闭">×</button></div>
+<div class="app-update" id="appUpdate"><span>CAT TIMES 有新版本</span><button id="appUpdateBtn" type="button">立即更新</button></div>
+
 
 <div id="catBackground"></div>
 
@@ -4916,6 +4924,61 @@ if ("serviceWorker" in navigator) {
     installBox?.classList.remove('show');
     deferredPrompt = null;
   });
+})();
+</script>
+
+
+<script>
+(function(){
+  const splash=document.getElementById('catSplash');
+  window.addEventListener('load',()=>setTimeout(()=>splash&&splash.classList.add('hide'),650),{once:true});
+
+  let deferredInstallPrompt=null;
+  const guide=document.getElementById('appGuide');
+  const installBtn=document.getElementById('appGuideInstall');
+  const closeBtn=document.getElementById('appGuideClose');
+  const isStandalone=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
+  const isiOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+
+  window.addEventListener('beforeinstallprompt',e=>{
+    e.preventDefault(); deferredInstallPrompt=e;
+    if(!isStandalone&&!localStorage.getItem('cat_times_install_closed')) guide.classList.add('show');
+  });
+  if(isiOS&&!isStandalone&&!localStorage.getItem('cat_times_install_closed')){
+    const t=document.getElementById('appGuideText');
+    if(t)t.textContent='点击浏览器“分享”，选择“添加到主屏幕”。';
+    if(installBtn)installBtn.style.display='none';
+    guide.classList.add('show');
+  }
+  installBtn?.addEventListener('click',async()=>{
+    if(!deferredInstallPrompt)return;
+    deferredInstallPrompt.prompt();
+    await deferredInstallPrompt.userChoice;
+    deferredInstallPrompt=null; guide.classList.remove('show');
+  });
+  closeBtn?.addEventListener('click',()=>{localStorage.setItem('cat_times_install_closed','1');guide.classList.remove('show')});
+  window.addEventListener('appinstalled',()=>guide.classList.remove('show'));
+
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.addEventListener('controllerchange',()=>{
+      if(window.__catTimesRefreshing)return;
+      window.__catTimesRefreshing=true;
+    });
+  }
+  const update=document.getElementById('appUpdate');
+  const updateBtn=document.getElementById('appUpdateBtn');
+  if(updateBtn)updateBtn.addEventListener('click',()=>location.reload());
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.getRegistration('./').then(reg=>{
+      if(!reg)return;
+      reg.addEventListener('updatefound',()=>{
+        const worker=reg.installing; if(!worker)return;
+        worker.addEventListener('statechange',()=>{
+          if(worker.state==='installed'&&navigator.serviceWorker.controller){update?.classList.add('show');}
+        });
+      });
+    }).catch(()=>{});
+  }
 })();
 </script>
 
