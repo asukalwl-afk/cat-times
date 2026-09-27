@@ -1207,79 +1207,42 @@
 
         <!-- REGISTER -->
 
-        <form
-          id="registerForm"
-          style="display:none"
-        >
+        <form id="registerForm">
 
-          <div class="field">
+  <div class="field">
+    <label>邮箱</label>
 
-            <label>
-              邮箱
-            </label>
+    <input
+      id="registerEmail"
+      type="email"
+      autocomplete="email"
+      required
+      placeholder="you@example.com"
+    >
+  </div>
 
-            <input
-              id="registerEmail"
-              type="email"
-              autocomplete="email"
-              required
-              placeholder="you@example.com"
-            >
+  <div class="auth-note">
+    第一步：绑定你的邮箱。
+    <br>
+    点击验证邮件后，返回 CAT TIMES 设置登录密码。
+    <br>
+    <strong>原来的匿名帖子、评论和点赞都会保留。</strong>
+  </div>
 
-          </div>
+  <button
+    class="submit"
+    type="submit"
+    style="width:100%"
+  >
+    发送验证邮件
+  </button>
 
+  <div
+    class="auth-error"
+    id="registerError"
+  ></div>
 
-          <div class="field">
-
-            <label>
-              密码
-            </label>
-
-            <input
-              id="registerPassword"
-              type="password"
-              autocomplete="new-password"
-              minlength="6"
-              required
-              placeholder="至少 6 位"
-            >
-
-          </div>
-
-
-          <div class="field">
-
-            <label>
-              确认密码
-            </label>
-
-            <input
-              id="registerPassword2"
-              type="password"
-              autocomplete="new-password"
-              minlength="6"
-              required
-              placeholder="再输入一次密码"
-            >
-
-          </div>
-
-
-          <button
-            class="submit"
-            type="submit"
-            style="width:100%"
-          >
-            绑定邮箱并注册
-          </button>
-
-
-          <div
-            class="auth-error"
-            id="registerError"
-          ></div>
-
-        </form>
+</form>
 
 
         <!-- PASSWORD AFTER EMAIL VERIFY -->
