@@ -1,14 +1,24 @@
 {
+  "id": "./",
   "name": "CAT TIMES",
   "short_name": "CAT TIMES",
   "description": "校园匿名吐槽、交流与分享",
+  "lang": "zh-CN",
+  "dir": "ltr",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone"
+  ],
+  "orientation": "portrait-primary",
   "background_color": "#ffffff",
   "theme_color": "#000000",
-  "orientation": "portrait-primary",
-  "lang": "zh-CN",
+  "categories": [
+    "social",
+    "news"
+  ],
   "icons": [
     {
       "src": "./icons/icon-192.png",
@@ -21,6 +31,44 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "首页",
+      "short_name": "首页",
+      "url": "./#home",
+      "icons": [
+        {
+          "src": "./icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "热门",
+      "short_name": "热门",
+      "url": "./#hot",
+      "icons": [
+        {
+          "src": "./icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "匿名投稿",
+      "short_name": "投稿",
+      "url": "./#post",
+      "icons": [
+        {
+          "src": "./icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     }
   ]
 }
