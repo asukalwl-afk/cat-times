@@ -1207,42 +1207,58 @@
 
         <!-- REGISTER -->
 
-        <form id="registerForm">
+        <form
+          id="registerForm"
+          style="display:none"
+        >
 
-  <div class="field">
-    <label>邮箱</label>
+          <div class="field">
 
-    <input
-      id="registerEmail"
-      type="email"
-      autocomplete="email"
-      required
-      placeholder="you@example.com"
-    >
-  </div>
+            <label>
+              邮箱
+            </label>
 
-  <div class="auth-note">
-    第一步：绑定你的邮箱。
-    <br>
-    点击验证邮件后，返回 CAT TIMES 设置登录密码。
-    <br>
-    <strong>原来的匿名帖子、评论和点赞都会保留。</strong>
-  </div>
+            <input
+              id="registerEmail"
+              type="email"
+              autocomplete="email"
+              required
+              placeholder="you@example.com"
+            >
 
-  <button
-    class="submit"
-    type="submit"
-    style="width:100%"
-  >
-    发送验证邮件
-  </button>
+          </div>
 
-  <div
-    class="auth-error"
-    id="registerError"
-  ></div>
 
-</form>
+          <div class="auth-note">
+
+            第一步：绑定你的邮箱。
+
+            <br>
+
+            点击验证邮件后，返回 CAT TIMES 设置登录密码。
+
+            <br>
+
+            <strong>原来的匿名帖子、评论和点赞都会保留。</strong>
+
+          </div>
+
+
+          <button
+            class="submit"
+            type="submit"
+            style="width:100%"
+          >
+            发送验证邮件
+          </button>
+
+
+          <div
+            class="auth-error"
+            id="registerError"
+          ></div>
+
+        </form>
 
 
         <!-- PASSWORD AFTER EMAIL VERIFY -->
@@ -4119,63 +4135,28 @@
 
       event.preventDefault();
 
-
       const email =
         document.getElementById(
           "registerEmail"
         ).value.trim();
-
-
-      const password =
-        document.getElementById(
-          "registerPassword"
-        ).value;
-
-
-      const password2 =
-        document.getElementById(
-          "registerPassword2"
-        ).value;
-
 
       const errorEl =
         document.getElementById(
           "registerError"
         );
 
+      errorEl.textContent = "";
 
-      errorEl.textContent =
-        "";
-
-
-      if (
-        password.length <
-        6
-      ) {
+      if (!email) {
 
         errorEl.textContent =
-          "密码至少需要 6 位。";
+          "请输入邮箱。";
 
         return;
 
       }
-
-
-      if (
-        password !==
-        password2
-      ) {
-
-        errorEl.textContent =
-          "两次密码不一致。";
-
-        return;
-
-      }
-
 
       await ensureAuth();
-
 
       if (
         !isAnonymousUser(
@@ -4190,37 +4171,40 @@
 
       }
 
+      /*
+       * 保存待验证邮箱，仅用于在验证链接返回后
+       * 判断是否应该显示设置密码界面。
+       * 密码不会在这里保存。
+       */
+      localStorage.setItem(
+        "cat_times_pending_email",
+        email
+      );
 
       /*
        * 将当前匿名用户绑定到邮箱。
-       *
-       * 注意：
-       * 不创建新的用户，
-       * 因此原来的 author_id 保持不变。
+       * 不创建新的用户，因此原来的 author_id、
+       * 帖子、评论和点赞都会继续保留。
        */
-
       const {
         error
       } =
-        await supabase.auth
-          .updateUser(
-
-            {
-              email
-            },
-
-            {
-              emailRedirectTo:
-                window.location.href
-            }
-
-          );
-
+        await supabase.auth.updateUser(
+          {
+            email
+          },
+          {
+            emailRedirectTo:
+              window.location.href
+          }
+        );
 
       if (error) {
 
-        console.error(
-          error
+        console.error(error);
+
+        localStorage.removeItem(
+          "cat_times_pending_email"
         );
 
         errorEl.textContent =
@@ -4231,13 +4215,12 @@
 
       }
 
-
-      registerForm.reset();
-
+      document.getElementById(
+        "registerForm"
+      ).reset();
 
       errorEl.textContent =
-        "验证邮件已经发送。请打开邮箱完成验证，然后回到 CAT TIMES 设置密码。";
-
+        "验证邮件已经发送。请打开邮箱完成验证，然后返回 CAT TIMES 设置密码。";
 
       toast(
         "验证邮件已发送 📮"
@@ -4245,6 +4228,80 @@
 
     }
   );
+
+
+  /* =========================================================
+     CHECK EMAIL VERIFICATION
+  ========================================================= */
+
+  async function checkEmailVerification() {
+
+    const pendingEmail =
+      localStorage.getItem(
+        "cat_times_pending_email"
+      );
+
+    if (!pendingEmail) {
+      return false;
+    }
+
+    const {
+      data,
+      error
+    } =
+      await supabase.auth.getUser();
+
+    if (
+      error ||
+      !data?.user
+    ) {
+      return false;
+    }
+
+    const user = data.user;
+
+    /*
+     * Supabase 官方匿名账号升级流程要求：
+     * 邮箱验证完成后，再为该匿名用户设置密码。
+     */
+    const verified =
+      !isAnonymousUser(user) &&
+      user.email &&
+      user.email.toLowerCase() ===
+        pendingEmail.toLowerCase();
+
+    if (!verified) {
+      return false;
+    }
+
+    currentUser = user;
+
+    openModal(
+      authModal
+    );
+
+    document.getElementById(
+      "authSignedOut"
+    ).style.display = "";
+
+    document.getElementById(
+      "authSignedIn"
+    ).style.display = "none";
+
+    document.getElementById(
+      "loginForm"
+    ).style.display = "none";
+
+    document.getElementById(
+      "registerForm"
+    ).style.display = "none";
+
+    document.getElementById(
+      "passwordSetupBox"
+    ).style.display = "";
+
+    return true;
+  }
 
 
   /* =========================================================
@@ -4332,6 +4389,9 @@
 
       passwordForm.reset();
 
+      localStorage.removeItem(
+        "cat_times_pending_email"
+      );
 
       document.getElementById(
         "passwordSetupBox"
@@ -4345,6 +4405,14 @@
 
 
       await refreshAuthUI();
+
+      if (
+        event === "USER_UPDATED" ||
+        event === "SIGNED_IN" ||
+        event === "INITIAL_SESSION"
+      ) {
+        await checkEmailVerification();
+      }
 
     }
   );
@@ -4607,6 +4675,8 @@
       await refreshAuthUI();
 
       await loadPosts();
+
+      await checkEmailVerification();
 
     } catch (
       error
