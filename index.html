@@ -3,6 +3,7 @@
 <head>
  <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#000000">
+  <meta name="application-name" content="CAT TIMES">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -896,6 +897,101 @@
         align-items: flex-start;
       }
     }
+  
+/* =========================================================
+   CAT TIMES APP SHELL
+========================================================= */
+html { scroll-behavior: smooth; }
+body { padding-bottom: calc(74px + env(safe-area-inset-bottom)); }
+
+.app-topbar {
+  display:none;
+}
+
+.bottom-app-nav {
+  position:fixed;
+  left:0; right:0; bottom:0;
+  z-index:1000;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  background:rgba(255,255,255,.97);
+  border-top:2px solid var(--ink);
+  padding-bottom:env(safe-area-inset-bottom);
+  box-shadow:0 -5px 18px rgba(0,0,0,.08);
+}
+.bottom-app-nav button {
+  min-height:66px;
+  border:0;
+  background:transparent;
+  color:var(--ink);
+  font:900 10px/1.2 "Noto Sans SC",sans-serif;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  -webkit-tap-highlight-color:transparent;
+}
+.bottom-app-nav button .app-icon { font-size:21px; line-height:1; }
+.bottom-app-nav button.active { background:var(--ink); color:#fff; }
+
+.app-install {
+  position:fixed;
+  left:12px; right:12px;
+  bottom:calc(82px + env(safe-area-inset-bottom));
+  z-index:999;
+  display:none;
+  align-items:center;
+  gap:12px;
+  padding:12px;
+  border:2px solid var(--ink);
+  background:#fff;
+  box-shadow:5px 5px 0 var(--ink);
+}
+.app-install.show { display:flex; }
+.app-install .install-copy { flex:1; font-size:12px; line-height:1.45; }
+.app-install strong { display:block; font-size:13px; }
+.app-install button { border:2px solid var(--ink); background:var(--ink); color:#fff; padding:8px 10px; font-weight:900; }
+.app-install .install-close { background:#fff; color:var(--ink); padding:7px 9px; }
+
+.app-sheet-handle { display:none; }
+
+@media (max-width: 720px) {
+  body { background:#f4f4f1; }
+  header { position:sticky; top:0; z-index:900; }
+  .masthead { grid-template-columns:1fr auto; gap:10px; padding:10px 12px; }
+  .date, .tagline > div { display:none; }
+  .tagline { justify-content:flex-end; }
+  .logo { font-size:42px; letter-spacing:-2px; text-align:left; }
+  .account-btn { padding:8px 10px; font-size:11px; }
+  header nav { padding-left:8px; scrollbar-width:none; }
+  header nav::-webkit-scrollbar { display:none; }
+  nav button { padding:10px 12px; font-size:11px; }
+  .container { width:min(100% - 20px, 1100px); }
+  .hero { padding:30px 0 20px; }
+  .hero h1 { font-size:38px; letter-spacing:-1.5px; }
+  .hero p { margin-top:15px; font-size:13px; line-height:1.75; }
+  .controls { grid-template-columns:1fr; margin:15px 0; }
+  .publish-btn { width:100%; min-height:48px; }
+  .hot-board { margin-bottom:20px; }
+  .post-card { padding:15px !important; }
+  .modal { width:calc(100% - 20px); max-height:88vh; border-width:2px; }
+  .modal-body { padding:16px !important; }
+  .field input, .field textarea, .field select { font-size:16px !important; }
+  footer { padding-bottom:90px; }
+  .app-topbar { display:flex; }
+}
+
+@media (min-width:721px) {
+  body { padding-bottom:0; }
+  .bottom-app-nav { display:none; }
+}
+
+@media (display-mode: standalone), (display-mode: fullscreen) {
+  .app-install { display:none !important; }
+  header { padding-top:env(safe-area-inset-top); }
+}
+
   </style>
 </head>
 
@@ -1077,6 +1173,36 @@
   </div>
 
 </footer>
+
+
+<!-- APP BOTTOM NAV -->
+<nav class="bottom-app-nav" id="bottomAppNav" aria-label="App 导航">
+  <button class="active" data-app-nav="home" type="button">
+    <span class="app-icon">📰</span><span>首页</span>
+  </button>
+  <button data-app-nav="hot" type="button">
+    <span class="app-icon">🔥</span><span>热门</span>
+  </button>
+  <button data-app-nav="post" type="button">
+    <span class="app-icon">✍️</span><span>投稿</span>
+  </button>
+  <button data-app-nav="search" type="button">
+    <span class="app-icon">⌕</span><span>搜索</span>
+  </button>
+  <button data-app-nav="account" type="button">
+    <span class="app-icon">🐱</span><span>我的</span>
+  </button>
+</nav>
+
+<div class="app-install" id="appInstall">
+  <div class="install-copy">
+    <strong>安装 CAT TIMES</strong>
+    添加到主屏幕，像 App 一样打开。
+  </div>
+  <button id="installAppBtn" type="button">安装</button>
+  <button class="install-close" id="closeInstall" type="button">×</button>
+</div>
+
 
 
 <!-- =========================
@@ -4722,5 +4848,76 @@ if ("serviceWorker" in navigator) {
   });
 }
 </script>
+
+<script>
+/* CAT TIMES PWA APP SHELL */
+(() => {
+  const bottom = document.getElementById('bottomAppNav');
+  if (!bottom) return;
+
+  const buttons = [...bottom.querySelectorAll('[data-app-nav]')];
+  const setActive = key => buttons.forEach(b => b.classList.toggle('active', b.dataset.appNav === key));
+
+  buttons.forEach(btn => btn.addEventListener('click', () => {
+    const key = btn.dataset.appNav;
+    setActive(key);
+
+    if (key === 'home') {
+      window.scrollTo({top:0, behavior:'smooth'});
+      return;
+    }
+    if (key === 'hot') {
+      document.querySelector('.hot-board')?.scrollIntoView({behavior:'smooth', block:'start'});
+      return;
+    }
+    if (key === 'post') {
+      document.getElementById('openPost')?.click();
+      return;
+    }
+    if (key === 'search') {
+      const search = document.getElementById('search');
+      search?.scrollIntoView({behavior:'smooth', block:'center'});
+      setTimeout(() => search?.focus(), 350);
+      return;
+    }
+    if (key === 'account') {
+      document.getElementById('authBtn')?.click();
+    }
+  }));
+
+  const originalScroll = window.scrollY;
+  if (originalScroll > 120) setActive('home');
+
+  let deferredPrompt = null;
+  const installBox = document.getElementById('appInstall');
+  const installBtn = document.getElementById('installAppBtn');
+  const closeInstall = document.getElementById('closeInstall');
+
+  window.addEventListener('beforeinstallprompt', event => {
+    event.preventDefault();
+    deferredPrompt = event;
+    if (!localStorage.getItem('cat_times_install_closed')) installBox?.classList.add('show');
+  });
+
+  installBtn?.addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    installBox?.classList.remove('show');
+  });
+
+  closeInstall?.addEventListener('click', () => {
+    localStorage.setItem('cat_times_install_closed','1');
+    installBox?.classList.remove('show');
+  });
+
+  window.addEventListener('appinstalled', () => {
+    installBox?.classList.remove('show');
+    deferredPrompt = null;
+  });
+})();
+</script>
+
 </body>
 </html>
